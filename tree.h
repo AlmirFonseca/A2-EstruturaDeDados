@@ -27,8 +27,8 @@ struct Node* stringToTree(struct Node* ptrNode, string iDados);
 // Função para criar uma árvore binária de busca a partir de dados digitados pelo usuário
 struct Node* arvoreDados();
 
-
-
+// Função para criar uma árvore binária de busca a partir de um arquivo .txt
+struct Node* ArvoreTxt(string strPath);
 
 
 

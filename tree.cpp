@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream> // Para usar arquivos .txt
 #include <regex> // Para usar expressões regulares
 #include "tree.h" // Inclui funções e estruturas para manipulação de árvores 
 
@@ -91,11 +92,49 @@ struct Node* arvoreDados()
     // Solicita os dados ao usuário
     cout<<"Digite os dados da sua árvore separados por vírgula: ";
     cin>>strDados;
-    
+
     // Chama a função para criar a árvore
     ptrRoot = stringArvore(ptrRoot,strDados);
     
     return ptrRoot;
 }
+
+
+
+// Função para criar uma árvore binária de busca a partir de um arquivo .txt
+struct Node* ArvoreTxt(string strPath)
+{
+    // Cria um ponteiro para o nó raiz e o inicializa como nulo
+    struct Node* ptrRoot = nullptr;
+
+    // Variável para armazenar o conteúdo do arquivo
+    ifstream inputFile;
+
+    // Abre o arquivo   
+    inputFile.open(strPath);
+
+    // Verifica se o arquivo foi aberto corretamente
+    if (inputFile.is_open()) 
+    {
+        // Variável para armazenar o conteúdo do arquivo
+        string strConteudo((istreambuf_iterator<char>(inputFile)), (istreambuf_iterator<char>()));
+
+        // Fecha o arquivo
+        inputFile.close();
+
+        // Chama a função para criar a árvore a partir do conteúdo do arquivo
+        ptrRoot = stringArvore(ptrRoot,strConteudo);
+
+    } 
+    // Caso contrário, exibe uma mensagem de erro
+    else 
+    {
+        std::cout << "Erro ao abrir o arquivo." << std::endl;
+    }
+
+    return ptrRoot;
+}
+
+
 
 
