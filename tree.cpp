@@ -40,3 +40,16 @@ struct Node* insertNode(struct Node* ptrNode,int iPayload)
     return ptrNode;
 }
 
+// Função para imprimir a árvore binária de busca
+void printTree(struct Node* ptrNode)
+{
+    // Se o nó inicial não for nulo, imprime o dado e percorre recursivamente a árvore
+    if (ptrNode != nullptr)
+    {
+        cout<<" "<<ptrNode->iData;
+        printTree(ptrNode->ptrLeft);
+        printTree(ptrNode->ptrRight);
+    }
+    
+}
+

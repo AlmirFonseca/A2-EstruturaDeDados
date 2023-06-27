@@ -14,6 +14,11 @@ struct Node* newNode(int iPayload);
 // Função para inserir um novo nó na árvore binária de busca
 struct Node* insertNode(struct Node* ptrNode,int iPayload);
 
+// Função para imprimir a árvore binária de busca
+void printTree(struct Node* ptrNode); 
+
+
+
 
 
 

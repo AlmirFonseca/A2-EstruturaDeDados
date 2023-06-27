@@ -10,9 +10,7 @@ int main()
     root = insertNode(root, 5);
     root = insertNode(root, 2);
     root = insertNode(root, 0);
-    cout << root->iData << endl;
-    cout << root->ptrLeft->iData << endl;
-    cout << root->ptrRight->iData << endl;
+    printTree(root);
 
 
     return 0;
