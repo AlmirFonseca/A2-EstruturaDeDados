@@ -5,13 +5,9 @@ using namespace std;
 
 int main()
 {
-    struct Node* root = newNode(1);
-    root = insertNode(root, 7);
-    root = insertNode(root, 5);
-    root = insertNode(root, 2);
-    root = insertNode(root, 0);
+    struct Node* root = arvoreDados();
+    cout<<"Árvore binária de busca criada: ";
     printTree(root);
-
 
     return 0;
 }

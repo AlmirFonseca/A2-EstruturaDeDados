@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <regex> // Para usar expressões regulares
 #include "tree.h" // Inclui funções e estruturas para manipulação de árvores 
 
 using namespace std;
@@ -52,4 +54,48 @@ void printTree(struct Node* ptrNode)
     }
     
 }
+
+
+
+// Função para, dado uma string separada por vírgulas, criar uma árvore binária de busca
+struct Node* stringArvore(struct Node* ptrNode, string iDados)
+{
+    // Variável para armazenar o dado convertido para inteiro
+    int iPayload;
+    // Expressão regular para separar os elementos entre vírgulas
+    regex regex(",");
+    sregex_token_iterator iterator(iDados.begin(), iDados.end(), regex, -1);
+    sregex_token_iterator endIterator;
+    
+    // Percorre os elementos separados e os insere na árvore
+    while (iterator != endIterator) 
+    {
+        // Converte o elemento para inteiro
+        iPayload = stoi(*iterator);
+        // Insere o elemento na árvore
+        ptrNode = insertNode(ptrNode,iPayload);
+        ++iterator;
+    }
+    return ptrNode;
+}
+
+// Função para criar uma árvore binária de busca a partir de dados digitados
+struct Node* arvoreDados()
+{
+    // Cria um ponteiro para o nó raiz e o inicializa como nulo
+    struct Node* ptrRoot = nullptr;
+
+    // Variável para armazenar os dados digitados
+    string strDados;
+
+    // Solicita os dados ao usuário
+    cout<<"Digite os dados da sua árvore separados por vírgula: ";
+    cin>>strDados;
+    
+    // Chama a função para criar a árvore
+    ptrRoot = stringArvore(ptrRoot,strDados);
+    
+    return ptrRoot;
+}
+
 
