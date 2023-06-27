@@ -16,3 +16,27 @@ struct Node* newNode(int iPayload)
     newNode -> ptrRight = nullptr;
     return newNode;
 }
+
+
+// Função para inserir um novo nó na árvore binária de busca
+struct Node* insertNode(struct Node* ptrNode,int iPayload)
+{
+    // Se a árvore estiver vazia, retorna o novo nó
+    if (ptrNode==nullptr)
+    {
+        ptrNode = newNode(iPayload);
+        return ptrNode;
+    }
+    // Caso contrário, percorre a árvore recursivamente até encontrar a posição correta
+    else if(iPayload < ptrNode->iData)
+    {
+        ptrNode->ptrLeft = insertNode(ptrNode->ptrLeft,iPayload);
+    }
+    else
+    {
+       ptrNode->ptrRight = insertNode(ptrNode->ptrRight,iPayload); 
+    }
+    
+    return ptrNode;
+}
+

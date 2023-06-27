@@ -11,6 +11,9 @@ struct Node
 // Função para criar um novo nó a partir de um dado
 struct Node* newNode(int iPayload);
 
+// Função para inserir um novo nó na árvore binária de busca
+struct Node* insertNode(struct Node* ptrNode,int iPayload);
+
 
 
 
