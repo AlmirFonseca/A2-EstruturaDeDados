@@ -21,13 +21,29 @@ int main()
     // Verifica se a árvore binária de busca é perfeita
     cout<<"A árvore binária de busca é perfeita? "<<ePerfeita(ptrNode2)<<endl;
 
+    // =============== INSERÇÃO DE ELEMENTO ===============
+    cout << endl << "---- Inserção de elemento: " << endl;
+
     // Solicita ao usuário um elemento para ser inserido na árvore
     ptrNode2 = inputInsertNode(ptrNode2);
+
     // Imprime a árvore com o novo elemento inserido
-    cout<<"Árvore binária de busca após a inserção do elemento: ";
+    cout << "Árvore binária de busca após a inserção do elemento: ";
     printTree(ptrNode2);
 
-    cout<<endl;
+    cout << endl;
+
+    // =============== REMOÇÃO DE ELEMENTO ===============
+    cout << endl << "---- Remoção de elemento: " << endl;
+
+    // Solicita ao usuário um elemento para ser removido da árvore
+    ptrNode2 = inputRemoveNode(ptrNode2);
+
+    // Imprime a árvore com o elemento removido
+    cout << "Árvore binária de busca após a remoção do elemento: ";
+    printTree(ptrNode2);
+
+    cout << endl << endl;
 
     // Cria uma lista encadeada simples
     struct List* ptrList = newList();

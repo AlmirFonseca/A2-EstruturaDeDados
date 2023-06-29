@@ -35,3 +35,9 @@ bool ePerfeita(struct Node* ptrNode);
 
 // Função que permite usuário fornecer um elemento para ser inserido na árvore
 struct Node* inputInsertNode(struct Node* ptrNode);
+
+// Função para remover um nó da árvore binária de busca
+struct Node* removeNode(struct Node* ptrNode, int iPayload);
+
+// Função que permite usuário fornecer um elemento para ser removido da árvore
+struct Node* inputRemoveNode(struct Node* ptrNode);

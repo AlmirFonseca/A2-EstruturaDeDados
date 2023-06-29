@@ -173,7 +173,103 @@ struct Node* inputInsertNode(struct Node* ptrNode)
     cin >> iElemento;
 
     // Chama a função para inserir o elemento na árvore
-    ptrNode = insertNode(ptrNode,iElemento);
+    ptrNode = insertNode(ptrNode, iElemento);
+
+    return ptrNode;
+}
+
+// Função para remover um nó da árvore binária de busca
+struct Node* removeNode(struct Node* ptrNode, int iPayload)
+{
+    // Se a árvore estiver vazia, retorna o novo nó
+    if (ptrNode==nullptr)
+    {
+        return ptrNode;
+    }
+
+    // Se o valor do nó atual é igual ao valor a ser removido
+    else if(iPayload == ptrNode->iData)
+    {
+        // Se o nó não tiver filhos
+        if (ptrNode->ptrLeft == nullptr and ptrNode->ptrRight == nullptr)
+        {
+            // Exclui o nó e retorna nulo 
+            free(ptrNode);
+            return nullptr;
+        }
+
+        // Se o nó tiver apenas o filho direito
+        else if (ptrNode->ptrLeft == nullptr)
+        {
+            // Cria um ponteiro para armazenar temporariamente o filho direito do nó que será excluído
+            struct Node* ptrRightTemp = ptrNode->ptrRight;
+
+            // Exclui o nó
+            free(ptrNode);
+
+            // Retorna o filho direito do nó excluído
+            return ptrRightTemp;
+        }
+
+        // Se o nó tiver apenas o filho esquerdo
+        else if (ptrNode->ptrRight == nullptr)
+        {
+            // Cria um ponteiro para armazenar temporariamente o filho esquerdo do nó que será excluído
+            struct Node* ptrLeftTemp = ptrNode->ptrLeft;
+
+            // Exclui o nó
+            free(ptrNode);
+
+            // Retorna o filho esquerdo do nó excluído
+            return ptrLeftTemp;
+        }
+        
+        // Se o nó tiver dois filhos, retorna o nó com o menor valor da subárvore direita
+        else
+        {
+            // Cria um ponteiro para o nó com o menor valor da subárvore direita
+            struct Node* ptrMinRight = ptrNode->ptrRight;
+
+            // Percorre a subárvore direita até o nó mais à esquerda (menor valor)
+            while (ptrMinRight->ptrLeft != nullptr) ptrMinRight = ptrMinRight->ptrLeft;
+
+            // Atribui o valor do nó com o menor valor da subárvore direita ao nó atual
+            ptrNode->iData = ptrMinRight->iData;
+
+            // Remove o nó com o menor valor da subárvore direita
+            ptrNode->ptrRight = removeNode(ptrNode->ptrRight, ptrMinRight->iData);
+
+            return ptrNode;
+        }
+    }
+
+    // Se o elemento a ser removido for menor que o elemento do nó atual, percorre a árvore recursivamente até encontrar a posição correta
+    else if(iPayload < ptrNode->iData)
+    {
+        ptrNode->ptrLeft = removeNode(ptrNode->ptrLeft, iPayload);
+    }
+
+    // Se o elemento a ser removido for maior que o elemento do nó atual, percorre a árvore recursivamente até encontrar a posição correta
+    else 
+    {
+       ptrNode->ptrRight = removeNode(ptrNode->ptrRight, iPayload); 
+    }
+    
+    return ptrNode;
+}
+
+// Função que permite usuário fornecer um elemento para ser removido da árvore
+struct Node* inputRemoveNode(struct Node* ptrNode)
+{
+    // Variável para armazenar o elemento a ser removido
+    int iElemento;
+
+    // Solicita o elemento ao usuário
+    cout << "Digite o elemento a ser removido: ";
+    cin >> iElemento;
+
+    // Chama a função para remover o elemento da árvore
+    ptrNode = removeNode(ptrNode, iElemento);
 
     return ptrNode;
 }
