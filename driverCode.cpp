@@ -66,36 +66,37 @@ int main()
     cout << endl << "---- Conversão da árvore em lista: " << endl;
 
     // Cria uma lista encadeada simples
-    struct List* ptrList = newList();
+    struct List* ptrList1 = newList();
     
     // Insere um novo nó na lista encadeada simples
-    insertNodeList(ptrList, 1);
-    insertNodeList(ptrList, 2);
-    insertNodeList(ptrList, 3);
-    insertNodeList(ptrList, 4);
-    insertNodeList(ptrList, 5);
+    insertListNode(ptrList1, 1);
+    insertListNode(ptrList1, 2);
+    insertListNode(ptrList1, 3);
+    insertListNode(ptrList1, 4);
+    insertListNode(ptrList1, 5);
     // Imprime a lista encadeada simples
-    cout<<"Lista encadeada simples criada: ";
-    printList(ptrList);
+    cout << "Lista encadeada simples criada: ";
+    printList(ptrList1);
 
     // Converte a árvore binária de busca em uma lista encadeada simples
-    struct List* ptrList2 = converterArvore(ptrRootTxt);
+    struct List* ptrList2 = treeToList(ptrRootTxt);
     // Imprime a lista encadeada simples
-    cout<<"Lista encadeada simples criada a partir da árvore binária de busca: ";
+    cout << "Lista encadeada simples criada a partir da árvore binária de busca: ";
     printList(ptrList2);
+
 
     // =================== ORDENAÇÃO DA LISTA ===================
     cout << endl << "---- Ordenação da lista: " << endl;
 
     // Ordena a lista encadeada simples utilizando Insertion Sort
-    cout<<"Lista encadeada simples antes do ordenamento por Insertion Sort: ";
+    cout << "Lista encadeada simples antes do ordenamento por Insertion Sort: ";
     printList(ptrList2);
 
-    struct List* ptrList3 = insertionSort(ptrRootTxt);
+    struct List* ptrList2Ordered = insertionSort(ptrRootTxt);
 
     // Imprime a lista encadeada simples
-    cout<<"Lista encadeada simples ordenada utilizando Insertion Sort: ";
-    printList(ptrList3);
+    cout << "Lista encadeada simples ordenada utilizando Insertion Sort: ";
+    printList(ptrList2Ordered);
 
     return 0;
 }

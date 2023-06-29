@@ -11,7 +11,7 @@ using namespace std;
 struct Node* newNode(int iPayload)
 {
     // Aloca memória para o novo nó
-    struct Node* newNode = new Node; 
+    struct Node* newNode = new struct Node; 
     // Atribui o dado ao novo nó
     newNode->iData = iPayload;
     // Atribui nullptr aos ponteiros para os nós filhos
