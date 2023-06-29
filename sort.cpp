@@ -107,3 +107,58 @@ struct List* converterArvore(struct Node* ptrNode)
 
     return ptrList;
 }
+
+// Função que ordena uma lista utilizando Insertion Sort
+struct List* insertionSort(struct Node* ptrNode)
+{
+    // Converte a árvore binária de busca em uma lista encadeada
+    struct List* ptrList = converterArvore(ptrNode);
+
+    // Cria um ponteiro para percorrer a lista não ordenada
+    struct NodeList* ptrCurrent = ptrList -> ptrHead;
+
+    // Caso a lista esteja vazia ou tenha só um elemento, retorna ela mesma
+    if (ptrCurrent == nullptr or ptrCurrent -> ptrNext == nullptr)
+    {
+        return ptrList;
+    }
+
+    // Caso contrário, cria uma nova lista vazia para armazenar a lista ordenada
+    struct List* ptrListOrdenada = newList();
+    
+    // Percorre a lista não ordenada
+    while (ptrCurrent != nullptr) 
+    {
+        // Cria um ponteiro para o próximo nó da lista não ordenada
+        struct NodeList* ptrNextNode = ptrCurrent -> ptrNext;
+
+        // Caso a lista ordenada esteja vazia ou o dado do nó atual seja menor que o dado do primeiro nó da lista ordenada
+        if (ptrListOrdenada -> ptrHead==nullptr or ptrCurrent->iData < ptrListOrdenada -> ptrHead->iData)
+        {
+            // Insere o nó no início da lista ordenada
+            ptrCurrent ->ptrNext = ptrListOrdenada -> ptrHead;
+            ptrListOrdenada -> ptrHead = ptrCurrent;
+        }
+        else
+        {
+            // Cria um ponteiro para percorrer a lista ordenada
+            struct NodeList* ptrTemp = ptrListOrdenada -> ptrHead;
+
+            // Percorre a lista ordenada até encontrar a posição correta para inserir o nó
+            while (ptrTemp -> ptrNext != nullptr and ptrCurrent -> iData >= ptrTemp -> ptrNext -> iData)
+            {
+                ptrTemp = ptrTemp -> ptrNext;
+            }
+            // Insere o nó na posição correta da lista ordenada
+            ptrCurrent -> ptrNext = ptrTemp -> ptrNext;
+            ptrTemp -> ptrNext = ptrCurrent;
+        }
+        // Atualiza o ponteiro para o próximo nó da lista não ordenada
+        ptrCurrent = ptrNextNode;
+    }
+
+    // Atualiza o ponteiro head da lista para a lista ordenada
+    ptrList -> ptrHead = ptrListOrdenada -> ptrHead;
+
+    return ptrList;
+}

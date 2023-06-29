@@ -13,7 +13,7 @@ int main()
     cout<<"A árvore binária de busca é perfeita? "<<ePerfeita(root)<<endl;
 
     cout<<endl;
-    
+
     // Cria uma árvore binária de busca a partir de um arquivo .txt
     struct Node* ptrNode2 = ArvoreTxt("../arvore.txt");
     cout<<"Árvore binária de busca criada a partir de um arquivo .txt:"<<endl;
@@ -42,6 +42,15 @@ int main()
     cout<<"Lista encadeada simples criada a partir da árvore binária de busca: ";
     printList(ptrList2);
 
+    // Ordena a lista encadeada simples utilizando Insertion Sort
+    cout<<"Lista encadeada simples antes do ordenamento por Insertion Sort: ";
+    printList(ptrList2);
+
+    struct List* ptrList3 = insertionSort(ptrNode2);
+
+    // Imprime a lista encadeada simples
+    cout<<"Lista encadeada simples ordenada utilizando Insertion Sort: ";
+    printList(ptrList3);
 
     return 0;
 }

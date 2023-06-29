@@ -28,3 +28,6 @@ void printList(struct List* ptrList);
 
 // Função que converte uma árvore binária de busca em uma lista encadeada
 struct List* converterArvore(struct Node* ptrNode);
+
+// Função que transforma uma árvore binária em lista encadeada e a ordena utilizando Insertion Sort
+struct List* insertionSort(struct Node* ptrNode);
