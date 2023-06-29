@@ -30,5 +30,7 @@ struct Node* arvoreDados();
 // Função para criar uma árvore binária de busca a partir de um arquivo .txt
 struct Node* ArvoreTxt(string strPath);
 
+// Função para verificar se uma árvore binária de busca é perfeita
+bool ePerfeita(struct Node* ptrNode);
 
 

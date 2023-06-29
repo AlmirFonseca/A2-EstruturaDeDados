@@ -135,6 +135,31 @@ struct Node* ArvoreTxt(string strPath)
     return ptrRoot;
 }
 
-
+// Função para verificar se uma árvore binária de busca é perfeita (se todos os nós tem 0 ou 2 filhos)
+bool ePerfeita(struct Node* ptrNode)
+{
+    // Se a árvore estiver vazia, retorna falso
+    if (ptrNode == nullptr)
+    {
+        return false;
+    }
+    // Se o nó não tiver filhos, retorna verdadeiro
+    else if (ptrNode->ptrLeft == nullptr and ptrNode->ptrRight == nullptr)
+    {
+        return true;
+    }
+    // Se o nó tiver apenas um filho, retorna falso
+    else if (ptrNode->ptrLeft == nullptr or ptrNode->ptrRight == nullptr)
+    {
+        return false;
+    }
+    // Se o nó tiver dois filhos, verifica recursivamente se os filhos também são perfeitos
+    else
+    {
+        // Caso um dos filhos não seja perfeito, retorna falso
+        return ePerfeita(ptrNode->ptrLeft) and ePerfeita(ptrNode->ptrRight);
+    }
+    
+}
 
 
