@@ -4,6 +4,7 @@
 
 int main()
 {
+    
     // Cria uma árvore binária de busca a partir de dados digitados pelo usuário
     struct Node* root = arvoreDados();
     cout<<"Árvore binária de busca criada: ";
@@ -35,6 +36,12 @@ int main()
     cout<<"Lista encadeada simples criada: ";
     printList(ptrList);
 
-    
+    // Converte a árvore binária de busca em uma lista encadeada simples
+    struct List* ptrList2 = converterArvore(ptrNode2);
+    // Imprime a lista encadeada simples
+    cout<<"Lista encadeada simples criada a partir da árvore binária de busca: ";
+    printList(ptrList2);
+
+
     return 0;
 }

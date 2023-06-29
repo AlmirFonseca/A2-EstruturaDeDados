@@ -74,3 +74,36 @@ void printList(struct List* ptrList)
     }
     cout << endl;
 }
+
+// Função que percorre a árvore binária de busca e insere os dados em uma lista
+void PercorreLista(struct Node* ptrNode, struct List* ptrList)
+{
+    // Se o nó for diferente de nullptr, percorre a árvore
+    if (ptrNode != nullptr)
+    {
+        // Percorre a árvore em pós-ordem
+        PercorreLista(ptrNode->ptrLeft, ptrList);
+        PercorreLista(ptrNode->ptrRight, ptrList);
+
+        // Insere o dado do nó na lista
+        insertNodeList(ptrList, ptrNode->iData);
+    }
+}
+
+// Função que converte uma árvore binária de busca em uma lista encadeada
+struct List* converterArvore(struct Node* ptrNode)
+{
+    // Cria uma nova lista
+    struct List* ptrList = newList();
+
+    // Se o nó for nullptr, retorna a lista vazia
+    if (ptrNode == nullptr)
+    {
+        return ptrList;
+    }
+
+    // Caso contrário, percorre a árvore e insere os dados na lista
+    PercorreLista(ptrNode, ptrList);
+
+    return ptrList;
+}

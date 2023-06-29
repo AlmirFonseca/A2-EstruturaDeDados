@@ -25,3 +25,6 @@ void insertNodeList(struct List* ptrList, int iPayload);
 
 // Função para imprimir a lista
 void printList(struct List* ptrList);
+
+// Função que converte uma árvore binária de busca em uma lista encadeada
+struct List* converterArvore(struct Node* ptrNode);
