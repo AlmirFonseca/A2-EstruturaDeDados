@@ -12,7 +12,7 @@ int main()
     cout << "Árvore binária de busca criada: ";
     printTree(ptrRootInput);
     // Verifica se a árvore binária de busca é perfeita
-    cout << endl << "A árvore binária de busca é perfeita? " << ePerfeita(ptrRootInput) << endl;
+    cout << endl << "A árvore binária de busca é perfeita? " << isPerfectTree(ptrRootInput) << endl;
 
 
     // =============== CRIAÇÃO DA ÁRVORE POR TXT ===============
@@ -23,7 +23,7 @@ int main()
     cout << "Árvore binária de busca criada a partir de um arquivo .txt:";
     printTree(ptrRootTxt);
     // Verifica se a árvore binária de busca é perfeita
-    cout << endl << "A árvore binária de busca é perfeita? " << ePerfeita(ptrRootTxt) << endl;
+    cout << endl << "A árvore binária de busca é perfeita? " << isPerfectTree(ptrRootTxt) << endl;
 
 
     // =============== INSERÇÃO DE ELEMENTO ===============
@@ -59,7 +59,11 @@ int main()
     cout << "Árvore binária de busca após a remoção do elemento: ";
     printTree(ptrRootTxt);
 
-    cout << endl << endl;
+    cout << endl;
+
+
+    // =============== CONVERSÃO DA ÁRVORE EM LISTA ===============
+    cout << endl << "---- Conversão da árvore em lista: " << endl;
 
     // Cria uma lista encadeada simples
     struct List* ptrList = newList();
@@ -79,6 +83,9 @@ int main()
     // Imprime a lista encadeada simples
     cout<<"Lista encadeada simples criada a partir da árvore binária de busca: ";
     printList(ptrList2);
+
+    // =================== ORDENAÇÃO DA LISTA ===================
+    cout << endl << "---- Ordenação da lista: " << endl;
 
     // Ordena a lista encadeada simples utilizando Insertion Sort
     cout<<"Lista encadeada simples antes do ordenamento por Insertion Sort: ";

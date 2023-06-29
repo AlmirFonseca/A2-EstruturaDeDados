@@ -135,7 +135,7 @@ struct Node* txtToTree(string strPath)
 }
 
 // Função para verificar se uma árvore binária de busca é perfeita (se todos os nós tem 0 ou 2 filhos)
-bool ePerfeita(struct Node* ptrNode)
+bool isPerfectTree(struct Node* ptrNode)
 {
     // Se a árvore estiver vazia, retorna falso
     if (ptrNode == nullptr)
@@ -148,7 +148,7 @@ bool ePerfeita(struct Node* ptrNode)
         return true;
     }
     // Se o nó tiver apenas um filho, retorna falso
-    else if (ptrNode->ptrLeft == nullptr or ptrNode->ptrRight == nullptr)
+    else if (ptrNode->ptrLeft == nullptr || ptrNode->ptrRight == nullptr)
     {
         return false;
     }
@@ -156,7 +156,7 @@ bool ePerfeita(struct Node* ptrNode)
     else
     {
         // Caso um dos filhos não seja perfeito, retorna falso
-        return ePerfeita(ptrNode->ptrLeft) && ePerfeita(ptrNode->ptrRight);
+        return isPerfectTree(ptrNode->ptrLeft) && isPerfectTree(ptrNode->ptrRight);
     }
     
 }
@@ -166,14 +166,14 @@ bool ePerfeita(struct Node* ptrNode)
 struct Node* inputInsertNode(struct Node* ptrNode)
 {
     // Variável para armazenar o elemento a ser inserido
-    int iElemento;
+    int iPayload;
 
     // Solicita o elemento ao usuário
     cout << "Digite o elemento a ser inserido: ";
-    cin >> iElemento;
+    cin >> iPayload;
 
     // Chama a função para inserir o elemento na árvore
-    ptrNode = insertNode(ptrNode, iElemento);
+    ptrNode = insertNode(ptrNode, iPayload);
 
     return ptrNode;
 }
@@ -182,7 +182,7 @@ struct Node* inputInsertNode(struct Node* ptrNode)
 struct Node* removeNode(struct Node* ptrNode, int iPayload)
 {
     // Se a árvore estiver vazia, retorna o novo nó
-    if (ptrNode==nullptr)
+    if (ptrNode == nullptr)
     {
         return ptrNode;
     }
@@ -252,7 +252,7 @@ struct Node* removeNode(struct Node* ptrNode, int iPayload)
     // Se o elemento a ser removido for maior que o elemento do nó atual, percorre a árvore recursivamente até encontrar a posição correta
     else 
     {
-       ptrNode->ptrRight = removeNode(ptrNode->ptrRight, iPayload); 
+        ptrNode->ptrRight = removeNode(ptrNode->ptrRight, iPayload); 
     }
     
     return ptrNode;
@@ -262,14 +262,14 @@ struct Node* removeNode(struct Node* ptrNode, int iPayload)
 struct Node* inputRemoveNode(struct Node* ptrNode)
 {
     // Variável para armazenar o elemento a ser removido
-    int iElemento;
+    int iPayload;
 
     // Solicita o elemento ao usuário
     cout << "Digite o elemento a ser removido: ";
-    cin >> iElemento;
+    cin >> iPayload;
 
     // Chama a função para remover o elemento da árvore
-    ptrNode = removeNode(ptrNode, iElemento);
+    ptrNode = removeNode(ptrNode, iPayload);
 
     return ptrNode;
 }
