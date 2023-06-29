@@ -13,19 +13,19 @@ struct Node* newNode(int iPayload)
     // Aloca memória para o novo nó
     struct Node* newNode = new Node; 
     // Atribui o dado ao novo nó
-    newNode -> iData = iPayload;
+    newNode->iData = iPayload;
     // Atribui nullptr aos ponteiros para os nós filhos
-    newNode -> ptrLeft = nullptr; 
-    newNode -> ptrRight = nullptr;
+    newNode->ptrLeft = nullptr; 
+    newNode->ptrRight = nullptr;
     return newNode;
 }
 
 
 // Função para inserir um novo nó na árvore binária de busca
-struct Node* insertNode(struct Node* ptrNode,int iPayload)
+struct Node* insertNode(struct Node* ptrNode, int iPayload)
 {
     // Se a árvore estiver vazia, retorna o novo nó
-    if (ptrNode==nullptr)
+    if (ptrNode == nullptr)
     {
         ptrNode = newNode(iPayload);
         return ptrNode;
@@ -33,11 +33,11 @@ struct Node* insertNode(struct Node* ptrNode,int iPayload)
     // Caso contrário, percorre a árvore recursivamente até encontrar a posição correta
     else if(iPayload < ptrNode->iData)
     {
-        ptrNode->ptrLeft = insertNode(ptrNode->ptrLeft,iPayload);
+        ptrNode->ptrLeft = insertNode(ptrNode->ptrLeft, iPayload);
     }
     else
     {
-       ptrNode->ptrRight = insertNode(ptrNode->ptrRight,iPayload); 
+        ptrNode->ptrRight = insertNode(ptrNode->ptrRight, iPayload); 
     }
     
     return ptrNode;
@@ -49,7 +49,7 @@ void printTree(struct Node* ptrNode)
     // Se o nó inicial não for nulo, imprime o dado e percorre recursivamente a árvore
     if (ptrNode != nullptr)
     {
-        cout<<" "<<ptrNode->iData;
+        cout << " " << ptrNode->iData;
         printTree(ptrNode->ptrLeft);
         printTree(ptrNode->ptrRight);
     }
@@ -58,13 +58,13 @@ void printTree(struct Node* ptrNode)
 
 
 // Função para, dado uma string separada por vírgulas, criar uma árvore binária de busca
-struct Node* stringArvore(struct Node* ptrNode, string iDados)
+struct Node* stringToTree(struct Node* ptrNode, string strTree)
 {
     // Variável para armazenar o dado convertido para inteiro
     int iPayload;
     // Expressão regular para separar os elementos entre vírgulas
     regex regex(",");
-    sregex_token_iterator iterator(iDados.begin(), iDados.end(), regex, -1);
+    sregex_token_iterator iterator(strTree.begin(), strTree.end(), regex, -1);
     sregex_token_iterator endIterator;
     
     // Percorre os elementos separados e os insere na árvore
@@ -73,27 +73,27 @@ struct Node* stringArvore(struct Node* ptrNode, string iDados)
         // Converte o elemento para inteiro
         iPayload = stoi(*iterator);
         // Insere o elemento na árvore
-        ptrNode = insertNode(ptrNode,iPayload);
+        ptrNode = insertNode(ptrNode, iPayload);
         ++iterator;
     }
     return ptrNode;
 }
 
 // Função para criar uma árvore binária de busca a partir de dados digitados
-struct Node* arvoreDados()
+struct Node* inputTree()
 {
     // Cria um ponteiro para o nó raiz e o inicializa como nulo
     struct Node* ptrRoot = nullptr;
 
     // Variável para armazenar os dados digitados
-    string strDados;
+    string strTree;
 
     // Solicita os dados ao usuário
-    cout<<"Digite os dados da sua árvore separados por vírgula: ";
-    cin>>strDados;
+    cout << "Digite os dados da sua árvore separados por vírgula: ";
+    cin >> strTree;
 
     // Chama a função para criar a árvore
-    ptrRoot = stringArvore(ptrRoot,strDados);
+    ptrRoot = stringToTree(ptrRoot, strTree);
     
     return ptrRoot;
 }
@@ -101,7 +101,7 @@ struct Node* arvoreDados()
 
 
 // Função para criar uma árvore binária de busca a partir de um arquivo .txt
-struct Node* ArvoreTxt(string strPath)
+struct Node* txtToTree(string strPath)
 {
     // Cria um ponteiro para o nó raiz e o inicializa como nulo
     struct Node* ptrRoot = nullptr;
@@ -122,13 +122,13 @@ struct Node* ArvoreTxt(string strPath)
         inputFile.close();
 
         // Chama a função para criar a árvore a partir do conteúdo do arquivo
-        ptrRoot = stringArvore(ptrRoot,strConteudo);
+        ptrRoot = stringToTree(ptrRoot, strConteudo);
 
     } 
     // Caso contrário, exibe uma mensagem de erro
     else 
     {
-        std::cout << "Erro ao abrir o arquivo." << std::endl;
+        cout << "Erro ao abrir o arquivo." << endl;
     }
 
     return ptrRoot;

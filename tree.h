@@ -22,13 +22,13 @@ struct Node* insertNode(struct Node* ptrNode,int iPayload);
 void printTree(struct Node* ptrNode); 
 
 // Função que, dado uma string separada por vírgulas, cria uma árvore binária de busca
-struct Node* stringToTree(struct Node* ptrNode, string iDados);
+struct Node* stringToTree(struct Node* ptrNode, string strTree);
 
 // Função para criar uma árvore binária de busca a partir de dados digitados pelo usuário
-struct Node* arvoreDados();
+struct Node* inputTree();
 
 // Função para criar uma árvore binária de busca a partir de um arquivo .txt
-struct Node* ArvoreTxt(string strPath);
+struct Node* txtToTree(string strPath);
 
 // Função para verificar se uma árvore binária de busca é perfeita
 bool ePerfeita(struct Node* ptrNode);
