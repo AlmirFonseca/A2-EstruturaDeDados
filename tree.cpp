@@ -57,7 +57,6 @@ void printTree(struct Node* ptrNode)
 }
 
 
-
 // Função para, dado uma string separada por vírgulas, criar uma árvore binária de busca
 struct Node* stringArvore(struct Node* ptrNode, string iDados)
 {
@@ -144,7 +143,7 @@ bool ePerfeita(struct Node* ptrNode)
         return false;
     }
     // Se o nó não tiver filhos, retorna verdadeiro
-    else if (ptrNode->ptrLeft == nullptr and ptrNode->ptrRight == nullptr)
+    else if (ptrNode->ptrLeft == nullptr && ptrNode->ptrRight == nullptr)
     {
         return true;
     }
@@ -157,7 +156,7 @@ bool ePerfeita(struct Node* ptrNode)
     else
     {
         // Caso um dos filhos não seja perfeito, retorna falso
-        return ePerfeita(ptrNode->ptrLeft) and ePerfeita(ptrNode->ptrRight);
+        return ePerfeita(ptrNode->ptrLeft) && ePerfeita(ptrNode->ptrRight);
     }
     
 }
