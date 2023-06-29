@@ -33,4 +33,5 @@ struct Node* ArvoreTxt(string strPath);
 // Função para verificar se uma árvore binária de busca é perfeita
 bool ePerfeita(struct Node* ptrNode);
 
-
+// Função que permite usuário fornecer um elemento para ser inserido na árvore
+struct Node* inputInsertNode(struct Node* ptrNode);

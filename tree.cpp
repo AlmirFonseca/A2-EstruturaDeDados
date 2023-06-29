@@ -163,3 +163,18 @@ bool ePerfeita(struct Node* ptrNode)
 }
 
 
+// Função que permite usuário fornecer um elemento para ser inserido na árvore
+struct Node* inputInsertNode(struct Node* ptrNode)
+{
+    // Variável para armazenar o elemento a ser inserido
+    int iElemento;
+
+    // Solicita o elemento ao usuário
+    cout << "Digite o elemento a ser inserido: ";
+    cin >> iElemento;
+
+    // Chama a função para inserir o elemento na árvore
+    ptrNode = insertNode(ptrNode,iElemento);
+
+    return ptrNode;
+}

@@ -15,11 +15,17 @@ int main()
     cout<<endl;
 
     // Cria uma árvore binária de busca a partir de um arquivo .txt
-    struct Node* ptrNode2 = ArvoreTxt("../arvore.txt");
+    struct Node* ptrNode2 = ArvoreTxt("./arvore.txt");
     cout<<"Árvore binária de busca criada a partir de um arquivo .txt:"<<endl;
     printTree(ptrNode2);
     // Verifica se a árvore binária de busca é perfeita
     cout<<"A árvore binária de busca é perfeita? "<<ePerfeita(ptrNode2)<<endl;
+
+    // Solicita ao usuário um elemento para ser inserido na árvore
+    ptrNode2 = inputInsertNode(ptrNode2);
+    // Imprime a árvore com o novo elemento inserido
+    cout<<"Árvore binária de busca após a inserção do elemento: ";
+    printTree(ptrNode2);
 
     cout<<endl;
 
