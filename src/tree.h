@@ -64,3 +64,6 @@ int calculateSize(struct Node* ptrNode);
 
 // Função que verifica se a árvore é completa
 bool isCompleteTree(struct Node* ptrNode);
+
+// Função que busca o endereço de memória de um nó
+struct Node* searchNode(struct Node* ptrNode, int iTarget);

@@ -181,3 +181,8 @@ void printDriverCode()
     cout << "Árvore binária de busca impressa utilizando BFS: ";
     printTreeBFS(ptrRootTxt);
 }
+
+    // =================== ENDEREÇO ===================
+    // Busca o endereço de memória de ume elemento na árvore
+    searchNode(ptrRootTxt);
+    return 0;
