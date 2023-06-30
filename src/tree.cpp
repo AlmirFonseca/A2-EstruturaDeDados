@@ -553,3 +553,59 @@ void printTreeBFS(struct Node* ptrNode)
     // Imprime o tempo de execução
     printTime(tpStart, tpEnd);
 }
+
+// Função que busca o endereço de memória de um nó na árvore
+struct Node* searchNode(struct Node* ptrNode, int iTarget)
+{
+    // Verifica se o nó atual é nulo, indicando o final da sub-árvore
+    if (ptrNode == nullptr)
+    {
+        return nullptr;
+    }
+
+    // Verifica se o valor do nó atual é igual ao valor buscado
+    if (ptrNode->iData == iTarget)
+    {
+        return ptrNode;
+    }
+
+    // Se o valor do nó atual for maior que o valor buscado, busca na subárvore esquerda
+    if (ptrNode->iData > iTarget)
+    {
+        return searchNode(ptrNode->ptrLeft, iTarget);
+    }
+
+    // Se o valor do nó atual for menor que o valor buscado, busca na subárvore direita
+    return searchNode(ptrNode->ptrRight, iTarget);
+    
+}
+
+// Função que imprime o endereço de memória de um nó na árvore
+void searchNode(struct Node* ptrNode)
+{
+    // Solicita o valor a ser buscado
+    int iTarget;
+    cout << "Digite o valor a ser buscado: ";
+    cin >> iTarget;
+
+    // Verifica se o valor é numérico
+    if (cin.fail())
+    {
+        cout << "Valor inválido!" << endl;
+        return;
+    }
+
+    // Busca o endereço de memória do nó
+    struct Node* ptrTarget = searchNode(ptrNode, iTarget);
+
+    // Imprime o resultado da busca
+    if (ptrTarget == nullptr)
+    {
+        cout << "O endereço de memória do nó não foi encontrado!" << endl;
+    }
+    else
+    {
+        cout << "O endereço de memória do nó " << ptrNode->iData   << " é: " << ptrTarget << endl;
+    }
+
+}

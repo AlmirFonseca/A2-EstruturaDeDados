@@ -18,6 +18,9 @@ void printDriverCode()
     // Verifica se a árvore binária de busca é completa
     cout << "A árvore binária de busca é completa? " << isCompleteTree(ptrRootInput) << endl;
 
+    // Libera a memória alocada para a árvore
+    deleteTree(ptrRootInput);
+
 
     // =============== CRIAÇÃO DA ÁRVORE POR TXT ===============
     cout << endl << "---- Criação de árvore por txt: " << endl;
@@ -101,6 +104,14 @@ void printDriverCode()
     cout << endl;
 
 
+    // =================== IMPRESSÃO DA ÁRVORE UTILIZANDO BFS ===================
+    cout << endl << "---- Impressão da árvore utilizando BFS: " << endl;
+
+    // Imprime a árvore binária de busca utilizando BFS
+    cout << "Árvore binária de busca impressa utilizando BFS: ";
+    printTreeBFS(ptrRootTxt);
+
+
     // =============== BASE DE LISTA DUPLAMENTE ENCADEADA ===============
     cout << endl << "---- Base de lista duplamente encadeada: " << endl;
 
@@ -145,12 +156,17 @@ void printDriverCode()
     cout << "Lista encadeada antes do ordenamento: ";
     printList(ptrListHead);
 
+
     // Ordena a lista encadeada utilizando Bubble Sort
     struct ListNode* ptrListBubbleSort =  bubbleSort(ptrRootTxt, false);
 
     // Imprime a lista encadeada ordenada
     cout << "Lista encadeada ordenada utilizando Bubble Sort: ";
     printList(ptrListBubbleSort);
+
+    // Libera a memória alocada pela lista encadeada
+    deleteList(&ptrListBubbleSort);
+
 
     // Ordena a lista encadeada utilizando Selection Sort
     struct ListNode* ptrListSelectionSort =  selectionSort(ptrRootTxt, false);
@@ -159,12 +175,20 @@ void printDriverCode()
     cout << "Lista encadeada ordenada utilizando Selection Sort: ";
     printList(ptrListSelectionSort);
 
+    // Libera a memória alocada pela lista encadeada
+    deleteList(&ptrListSelectionSort);
+
+
     // Ordena a lista encadeada utilizando Insertion Sort
     struct ListNode* ptrListInsertionSort =  insertionSort(ptrRootTxt, false);
 
     // Imprime a lista encadeada ordenada
     cout << "Lista encadeada ordenada utilizando Insertion Sort: ";
     printList(ptrListInsertionSort);
+
+    // Libera a memória alocada pela lista encadeada
+    deleteList(&ptrListInsertionSort);
+
 
     // Ordena a lista encadeada utilizando Shell Sort
     struct ListNode* ptrListShellSort =  shellSort(ptrRootTxt, false);
@@ -173,11 +197,48 @@ void printDriverCode()
     cout << "Lista encadeada ordenada utilizando Shell Sort: ";
     printList(ptrListShellSort);
 
+    // Libera a memória alocada pela lista encadeada
+    deleteList(&ptrListShellSort);
 
-    // =================== IMPRESSÃO DA ÁRVORE UTILIZANDO BFS ===================
-    cout << endl << "---- Impressão da árvore utilizando BFS: " << endl;
+    // Libera a memória alocada pela árvore
+    deleteTree(ptrRootTxt);
 
-    // Imprime a árvore binária de busca utilizando BFS
-    cout << "Árvore binária de busca impressa utilizando BFS: ";
-    printTreeBFS(ptrRootTxt);
+
+    // Testa a ordenação da lista gerada por outra árvore
+    struct Node* ptrRootTxt2 = txtToTree("./trees/arvore2.txt");
+    cout << endl << "Nova árvore binária de busca: ";
+    printTreeBFS(ptrRootTxt2);
+    cout << endl;
+
+    // Buble Sort
+    struct ListNode* ptrListBubbleSort2 = bubbleSort(ptrRootTxt2, false);
+    cout << "Lista encadeada ordenada utilizando Bubble Sort: ";
+    printList(ptrListBubbleSort2);
+    deleteList(&ptrListBubbleSort2);
+
+    // Selection Sort
+    struct ListNode* ptrListSelectionSort2 = selectionSort(ptrRootTxt2, false);
+    cout << "Lista encadeada ordenada utilizando Selection Sort: ";
+    printList(ptrListSelectionSort2);
+    deleteList(&ptrListSelectionSort2);
+
+    // Insertion Sort
+    struct ListNode* ptrListInsertionSort2 = insertionSort(ptrRootTxt2, false);
+    cout << "Lista encadeada ordenada utilizando Insertion Sort: ";
+    printList(ptrListInsertionSort2);
+    deleteList(&ptrListInsertionSort2);
+
+    // Shell Sort
+    struct ListNode* ptrListShellSort2 = shellSort(ptrRootTxt2, false);
+    cout << "Lista encadeada ordenada utilizando Shell Sort: ";
+    printList(ptrListShellSort2);
+    deleteList(&ptrListShellSort2);
+
+    // Libera a memória alocada pela árvore
+    deleteTree(ptrRootTxt2);
+
+    // =================== ENDEREÇO ===================
+    // Busca o endereço de memória de ume elemento na árvore
+    searchNode(ptrRootTxt);
+
 }
