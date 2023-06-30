@@ -237,3 +237,8 @@ void printDriverCode()
     // Libera a memória alocada pela árvore
     deleteTree(ptrRootTxt2);
 }
+
+    // =================== ENDEREÇO ===================
+    // Busca o endereço de memória de ume elemento na árvore
+    searchNode(ptrRootTxt);
+    return 0;
