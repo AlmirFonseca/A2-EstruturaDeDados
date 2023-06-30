@@ -208,61 +208,20 @@ struct ListNode* treeToList(struct Node* ptrNodeTree)
 }
 
 // Troca dois nós de posição numa lista
-void swapListNodes(struct ListNode** ptrHead, struct ListNode* ptrNodeA, struct ListNode* ptrNodeB)
-{
-    // Check if the nodes to be swapped are the same
-    if (ptrNodeA == ptrNodeB)
-        return;
-
-    // Check if either of the nodes is NULL
-    if (ptrNodeA == nullptr || ptrNodeB == nullptr)
-        return;
-
-    // Check if the head node needs to be updated
-    if (*ptrHead == ptrNodeA)
-        *ptrHead = ptrNodeB;
-    else if (*ptrHead == ptrNodeB)
-        *ptrHead = ptrNodeA;
-
-    // Update the next pointers
-    if (ptrNodeA->ptrNext != nullptr)
-        ptrNodeA->ptrNext->ptrPrev = ptrNodeB;
-    if (ptrNodeB->ptrNext != nullptr)
-        ptrNodeB->ptrNext->ptrPrev = ptrNodeA;
-
-    // Update the prev pointers
-    if (ptrNodeA->ptrPrev != nullptr)
-        ptrNodeA->ptrPrev->ptrNext = ptrNodeB;
-    if (ptrNodeB->ptrPrev != nullptr)
-        ptrNodeB->ptrPrev->ptrNext = ptrNodeA;
-
-    // Swap the next pointers
-    struct ListNode* ptrTemp = ptrNodeA->ptrNext;
-    ptrNodeA->ptrNext = ptrNodeB->ptrNext;
-    ptrNodeB->ptrNext = ptrTemp;
-
-    // Swap the prev pointers
-    ptrTemp = ptrNodeA->ptrPrev;
-    ptrNodeA->ptrPrev = ptrNodeB->ptrPrev;
-    ptrNodeB->ptrPrev = ptrTemp;
-}
-
-// Função para trocar dois nós da lista duplamente encadeada
-void swap(struct ListNode** head, struct ListNode* ptrNode1, struct ListNode* ptrNode2)
+void swapListNodes(struct ListNode** ptrHead, struct ListNode* ptrNode1, struct ListNode* ptrNode2)
 {
     // Insere os elementos que serão trocados nas posições corretas
     insertAfter(ptrNode1, ptrNode2->iData);
     insertAfter(ptrNode2, ptrNode1->iData);
 
     // Remove os elementos que foram trocados das posições anteriores
-    deleteNode(head, ptrNode1);
-    deleteNode(head, ptrNode2);
+    deleteNode(ptrHead, ptrNode1);
+    deleteNode(ptrHead, ptrNode2);
 }
 
 // Converte a árvore numa lista e a converte utilizando o algoritmo de Bubble Sort
 struct ListNode* bubbleSort(struct Node* ptrNodeTree)
 {
-
     // Converte a árvore para uma lista encadeada
     struct ListNode* ptrListHead = treeToList(ptrNodeTree);
 
@@ -281,6 +240,7 @@ struct ListNode* bubbleSort(struct Node* ptrNodeTree)
     // Cria um ponteiro para indicar até aonde devemos percorrer a lista em cada iteração
     struct ListNode* ptrStopNode = nullptr;
 
+    // Percorre a lista até ponteiro que indica o final da parte ainda não ordenada da lista
     while(ptrListHead != ptrStopNode)
     {
         // Reinicia o booleano para cada iteração
@@ -296,7 +256,7 @@ struct ListNode* bubbleSort(struct Node* ptrNodeTree)
             if (ptrCurrentNode->iData > ptrCurrentNode->ptrNext->iData)
             {
                 // Troca os nós de posição
-                swap(&ptrListHead, ptrCurrentNode, ptrCurrentNode->ptrNext);
+                swapListNodes(&ptrListHead, ptrCurrentNode, ptrCurrentNode->ptrNext);
 
                 // Atualiza o booleano
                 bSwaped = true;
@@ -311,6 +271,47 @@ struct ListNode* bubbleSort(struct Node* ptrNodeTree)
 
         // Caso a lista esteja ordenada, interrompe o loop
         if (bSwaped == false) return ptrListHead;
+    }
+
+    // Retorna o ponteiro da lista ordenada
+    return ptrListHead;
+}
+
+// Converte a árvore numa lista e a converte utilizando o algoritmo de Selection Sort
+struct ListNode* selectionSort(struct Node* ptrNodeTree)
+{
+    // Converte a árvore para uma lista encadeada
+    struct ListNode* ptrListHead = treeToList(ptrNodeTree);
+
+    // Cria um ponteiro para percorrer a lista (outerLoop)
+    struct ListNode* ptrOuterLoop = ptrListHead;
+
+    // Percorre a lista no outerLoop até o seu fim (ptrOuterLoop != nullptr)
+    while (ptrOuterLoop != nullptr)
+    {
+        // Cria um ponteiro para percorrer a lista (innerLoop) que se inicia à frente do outerLoop
+        struct ListNode* ptrInnerLoop = ptrOuterLoop->ptrNext;
+
+        // Percorre a lista no innerLoop até o seu fim (ptrInnerLoop != nullptr)
+        while (ptrInnerLoop != nullptr)
+        {
+            // Caso o elemento atual do innerLoop seja menor que o elemento atual do outerLoop
+            if (ptrInnerLoop->iData < ptrOuterLoop->iData)
+            {
+                // Troca os nós de posição, adicionando novos nós e apagando os nós antigos
+                swapListNodes(&ptrListHead, ptrOuterLoop, ptrInnerLoop);
+
+                // Avança os nós após a troca
+                ptrInnerLoop = ptrInnerLoop->ptrNext;
+                ptrOuterLoop = ptrOuterLoop->ptrNext;
+            }
+
+            // Avança o ponteiro ao final do innerLoop
+            ptrInnerLoop = ptrInnerLoop->ptrNext;
+        }
+
+        // Avança o ponteiro ao final do outerLoop
+        ptrOuterLoop = ptrOuterLoop->ptrNext;
     }
 
     // Retorna o ponteiro da lista ordenada

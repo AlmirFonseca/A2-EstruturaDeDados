@@ -38,3 +38,6 @@ void swapListNodes(struct ListNode** ptrHead, struct ListNode* ptrNodeA, struct 
 
 // Ordena a lista utilizando o algoritmo de Bubble Sort
 struct ListNode* bubbleSort(struct Node* ptrNodeTree);
+
+// Converte a árvore numa lista e a converte utilizando o algoritmo de Selection Sort
+struct ListNode* selectionSort(struct Node* ptrNodeTree);

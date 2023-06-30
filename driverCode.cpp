@@ -110,5 +110,12 @@ int main()
     cout << "Lista encadeada ordenada utilizando Bubble Sort: ";
     printList(ptrListBubbleSort);
 
+    // Ordena a lista encadeada utilizando Selection Sort
+    struct ListNode* ptrListSelectionSort =  selectionSort(ptrRootTxt);
+
+    // Imprime a lista encadeada ordenada
+    cout << "Lista encadeada ordenada utilizando Selection Sort: ";
+    printList(ptrListSelectionSort);
+
     return 0;
 }
