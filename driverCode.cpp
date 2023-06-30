@@ -4,15 +4,15 @@
 
 int main()
 {   
-    // =============== CRIAÇÃO DA ÁRVORE POR INPUT ===============
-    cout << endl << "---- Criação de árvore por input: " << endl;
+    // // =============== CRIAÇÃO DA ÁRVORE POR INPUT ===============
+    // cout << endl << "---- Criação de árvore por input: " << endl;
 
-    // Cria uma árvore binária de busca a partir de dados digitados pelo usuário
-    struct Node* ptrRootInput = inputTree();
-    cout << "Árvore binária de busca criada: ";
-    printTree(ptrRootInput);
-    // Verifica se a árvore binária de busca é perfeita
-    cout << endl << "A árvore binária de busca é perfeita? " << isPerfectTree(ptrRootInput) << endl;
+    // // Cria uma árvore binária de busca a partir de dados digitados pelo usuário
+    // struct Node* ptrRootInput = inputTree();
+    // cout << "Árvore binária de busca criada: ";
+    // printTree(ptrRootInput);
+    // // Verifica se a árvore binária de busca é perfeita
+    // cout << endl << "A árvore binária de busca é perfeita? " << isPerfectTree(ptrRootInput) << endl;
 
 
     // =============== CRIAÇÃO DA ÁRVORE POR TXT ===============
@@ -26,77 +26,75 @@ int main()
     cout << endl << "A árvore binária de busca é perfeita? " << isPerfectTree(ptrRootTxt) << endl;
 
 
-    // =============== INSERÇÃO DE ELEMENTO ===============
-    cout << endl << "---- Inserção de elemento: " << endl;
+    // // =============== INSERÇÃO DE ELEMENTO ===============
+    // cout << endl << "---- Inserção de elemento: " << endl;
 
-    // Imprime a árvore antes da inserção
-    cout << "Árvore binária de busca antes da inserção do elemento: ";
-    printTree(ptrRootTxt);
-    cout << endl;
+    // // Imprime a árvore antes da inserção
+    // cout << "Árvore binária de busca antes da inserção do elemento: ";
+    // printTree(ptrRootTxt);
+    // cout << endl;
 
-    // Solicita ao usuário um elemento para ser inserido na árvore
-    ptrRootTxt = inputInsertNode(ptrRootTxt);
+    // // Solicita ao usuário um elemento para ser inserido na árvore
+    // ptrRootTxt = inputInsertNode(ptrRootTxt);
 
-    // Imprime a árvore com o novo elemento inserido
-    cout << "Árvore binária de busca após a inserção do elemento: ";
-    printTree(ptrRootTxt);
+    // // Imprime a árvore com o novo elemento inserido
+    // cout << "Árvore binária de busca após a inserção do elemento: ";
+    // printTree(ptrRootTxt);
 
-    cout << endl;
-
-
-    // =============== REMOÇÃO DE ELEMENTO ===============
-    cout << endl << "---- Remoção de elemento: " << endl;
-
-    // Imprime a árvore antes da remoção
-    cout << "Árvore binária de busca antes da remoção do elemento: ";
-    printTree(ptrRootTxt);
-    cout << endl;
-
-    // Solicita ao usuário um elemento para ser removido da árvore
-    ptrRootTxt = inputRemoveNode(ptrRootTxt);
-
-    // Imprime a árvore com o elemento removido
-    cout << "Árvore binária de busca após a remoção do elemento: ";
-    printTree(ptrRootTxt);
-
-    cout << endl;
+    // cout << endl;
 
 
+    // // =============== REMOÇÃO DE ELEMENTO ===============
+    // cout << endl << "---- Remoção de elemento: " << endl;
+
+    // // Imprime a árvore antes da remoção
+    // cout << "Árvore binária de busca antes da remoção do elemento: ";
+    // printTree(ptrRootTxt);
+    // cout << endl;
+
+    // // Solicita ao usuário um elemento para ser removido da árvore
+    // ptrRootTxt = inputRemoveNode(ptrRootTxt);
+
+    // // Imprime a árvore com o elemento removido
+    // cout << "Árvore binária de busca após a remoção do elemento: ";
+    // printTree(ptrRootTxt);
+
+    // cout << endl;
+
+
+    // =============== BASE DE LISTA DUPLAMENTE ENCADEADA ===============
+    cout << endl << "---- Base de lista duplamente encadeada: " << endl;
+
+    // Cria uma lista encadeada
+    struct ListNode* ptrListHead = nullptr;
+    
+    // Insere um novo nó na lista encadeada
+    insertList(&ptrListHead, 1);
+    insertList(&ptrListHead, 2);
+    insertList(&ptrListHead, 3);
+    insertList(&ptrListHead, 4);
+    insertList(&ptrListHead, 5);
+
+    // Imprime a lista encadeada
+    cout << "Lista encadeada criada: ";
+    printList(ptrListHead);
+
+    // Deleta a lista 
+    deleteList(&ptrListHead);
+
+    // Imprime a lista vazia
+    cout << "Lista após a deleção: ";
+    printList(ptrListHead);
+
+    
     // =============== CONVERSÃO DA ÁRVORE EM LISTA ===============
     cout << endl << "---- Conversão da árvore em lista: " << endl;
 
-    // Cria uma lista encadeada simples
-    struct List* ptrList1 = newList();
-    
-    // Insere um novo nó na lista encadeada simples
-    insertListNode(ptrList1, 1);
-    insertListNode(ptrList1, 2);
-    insertListNode(ptrList1, 3);
-    insertListNode(ptrList1, 4);
-    insertListNode(ptrList1, 5);
-    // Imprime a lista encadeada simples
-    cout << "Lista encadeada simples criada: ";
-    printList(ptrList1);
-
-    // Converte a árvore binária de busca em uma lista encadeada simples
-    struct List* ptrList2 = treeToList(ptrRootTxt);
-    // Imprime a lista encadeada simples
-    cout << "Lista encadeada simples criada a partir da árvore binária de busca: ";
-    printList(ptrList2);
-
-
-    // =================== ORDENAÇÃO DA LISTA ===================
-    cout << endl << "---- Ordenação da lista: " << endl;
-
-    // Ordena a lista encadeada simples utilizando Insertion Sort
-    cout << "Lista encadeada simples antes do ordenamento por Insertion Sort: ";
-    printList(ptrList2);
-
-    struct List* ptrList2Ordered = insertionSort(ptrRootTxt);
-
-    // Imprime a lista encadeada simples
-    cout << "Lista encadeada simples ordenada utilizando Insertion Sort: ";
-    printList(ptrList2Ordered);
+    // Converte a árvore binária de busca em uma lista encadeada
+    ptrListHead = treeToList(ptrRootTxt);
+    // Imprime a lista encadeada
+    cout << "Lista encadeada criada a partir da árvore binária de busca: ";
+    printList(ptrListHead);
 
     return 0;
 }

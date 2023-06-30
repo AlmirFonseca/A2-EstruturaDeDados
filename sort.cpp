@@ -62,7 +62,7 @@ void insertList(struct ListNode** ptrHead, int iPayload)
 }
 
 // Deleta toda a lista
-void deleteLinkedList(struct ListNode** ptrHead)
+void deleteList(struct ListNode** ptrHead)
 {
     // Criamos 2 ponteiros auxiliares para apontar o nó atual (que será removido) e o nó seguinte
     struct ListNode* ptrCurrentNode = *ptrHead;
@@ -110,4 +110,38 @@ void printList(struct ListNode* ptrHead)
         ptrHead = ptrHead->ptrNext;
     }
     cout << endl;
+}
+
+// Função que percorre a árvore binária de busca e insere os dados em uma lista
+void insertTreeInList(struct Node* ptrNodeTree, struct ListNode** ptrListHead)
+{
+    // Se o nó for diferente de nullptr, percorre a árvore
+    if (ptrNodeTree != nullptr)
+    {
+        // Percorre a árvore em pós-ordem
+        insertTreeInList(ptrNodeTree->ptrLeft, ptrListHead);
+        insertTreeInList(ptrNodeTree->ptrRight, ptrListHead);
+
+        // Insere o dado do nó na lista
+        insertList(ptrListHead, ptrNodeTree->iData);
+    }
+}
+
+// Função que converte uma árvore binária de busca em uma lista encadeada
+struct ListNode* treeToList(struct Node* ptrNodeTree)
+{
+    // Cria uma nova lista
+    struct ListNode* ptrListHead = nullptr;
+
+    // Se o nó for nullptr, retorna a lista vazia
+    if (ptrNodeTree == nullptr)
+    {
+        return ptrListHead;
+    }
+
+    // Caso contrário, percorre a árvore e insere os dados na lista
+    insertTreeInList(ptrNodeTree, &ptrListHead);
+
+    // Retorna o ponteiro da lista, agora preenchida com os elementos da árvore
+    return ptrListHead;
 }
