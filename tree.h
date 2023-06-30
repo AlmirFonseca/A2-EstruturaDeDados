@@ -54,4 +54,10 @@ struct treeStats {
 };
 
 // Função para obter o tamanho da árvore
-TreeStats getTreeSize(struct Node* prtNode);   
+treeStats getTreeSize(struct Node* prtNode);   
+
+// Função que calcula o tamanho da árvore
+int calculateSize(struct Node* prtNode);
+
+// Função que verifica se a árvore é completa
+bool isCompleteTree(struct Node* prtNode);

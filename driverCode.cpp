@@ -153,5 +153,12 @@ int main()
     cout << "Valor máximo: " << tsStats.iMaxValue << endl;
     cout << "Número de folhas: " << tsStats.iNumLeaves << endl;
 
+    // =================== ÁRVORE COMPLETA ===================
+    // Verifica se a árvore é completa
+    if (isCompleteTree(ptrRootTxt))  
+        cout << "A árvore é completa.\n";
+    else
+        cout << "A árvore não é completa.\n";
+
     return 0;
 }
