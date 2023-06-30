@@ -55,43 +55,46 @@ void printTree(struct Node* ptrNode)
     }
     
 }
-
-
-// Função para, dado uma string separada por vírgulas, criar uma árvore binária de busca
-struct Node* stringToTree(struct Node* ptrNode, string strTree)
+Node* stringToTree(Node* ptrNode, string strTree)
 {
-    // Variável para armazenar o dado convertido para inteiro
-    int iPayload;
-    // Expressão regular para separar os elementos entre vírgulas
-
-    // Caso a string esteja vazia, retorna nulo
+    // Verificar se a string está vazia
     if (strTree.empty())
     {
         return nullptr;
     }
-
-    regex regex(",");
-    sregex_token_iterator iterator(strTree.begin(), strTree.end(), regex, -1);
+    
+    // Expressão regular para separar os elementos entre vírgulas
+    regex separator(",");
+    sregex_token_iterator iterator(strTree.begin(), strTree.end(), separator, -1);
     sregex_token_iterator endIterator;
     
-    // Percorre os elementos separados e os insere na árvore
+    
+    // Percorrer os elementos separados e inserir na árvore
     while (iterator != endIterator) 
     {
-        /*
-        // Caso o elemento não seja inteiro, retorna nulo
-        if (!regex_match(*iterator, regex("[0-9]+")))
+        // Verificar se o elemento é válido
+        if (isdigit(*iterator->str().begin()))
         {
+            // Converter o elemento para inteiro
+            int iElement = stoi(*iterator);
+            
+            // Inserir o elemento na árvore
+            ptrNode = insertNode(ptrNode, iElement);
+        }
+        else
+        {
+            cout << "Erro: a árvore deve conter apenas números inteiros." << endl;
             return nullptr;
         }
-        */
-        // Converte o elemento para inteiro
-        iPayload = stoi(*iterator);
-        // Insere o elemento na árvore
-        ptrNode = insertNode(ptrNode, iPayload);
+        
+        
         ++iterator;
     }
+    
     return ptrNode;
 }
+
+
 
 // Função para criar uma árvore binária de busca a partir de dados digitados
 struct Node* inputTree()
@@ -105,6 +108,7 @@ struct Node* inputTree()
     // Solicita os dados ao usuário
     cout << "Digite os dados da sua árvore separados por vírgula: ";
     cin >> strTree;
+
 
     // Chama a função para criar a árvore
     ptrRoot = stringToTree(ptrRoot, strTree);
