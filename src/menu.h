@@ -1,3 +1,6 @@
+// Função que pede confirmação para sobrescrever a árvore
+bool confirmOverwrite();
+
 // Função que exibe o menu principal e retorna a escolha do usuário
 int escolhaPrincipal();
 

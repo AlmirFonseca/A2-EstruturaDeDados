@@ -1,8 +1,9 @@
-#include "tree.cpp"
-#include "sort.cpp"
+#include "tree.h"
+#include "sort.h"
+#include "driverCode.h"
 #include <iostream>
 
-int main()
+void printDriverCode()
 {   
     // =============== CRIAÇÃO DA ÁRVORE POR INPUT ===============
     cout << endl << "---- Criação de árvore por input: " << endl;
@@ -21,7 +22,7 @@ int main()
     cout << endl << "---- Criação de árvore por txt: " << endl;
 
     // Cria uma árvore binária de busca a partir de um arquivo .txt
-    struct Node* ptrRootTxt = txtToTree("../arvore.txt");
+    struct Node* ptrRootTxt = txtToTree("./trees/arvore1.txt");
     cout << "Árvore binária de busca criada a partir de um arquivo .txt:";
     printTree(ptrRootTxt);
 
@@ -171,12 +172,11 @@ int main()
     cout << "Lista encadeada ordenada utilizando Shell Sort: ";
     printList(ptrListShellSort);
 
+
     // =================== IMPRESSÃO DA ÁRVORE UTILIZANDO BFS ===================
     cout << endl << "---- Impressão da árvore utilizando BFS: " << endl;
 
     // Imprime a árvore binária de busca utilizando BFS
     cout << "Árvore binária de busca impressa utilizando BFS: ";
     printTreeBFS(ptrRootTxt);
-
-    return 0;
 }

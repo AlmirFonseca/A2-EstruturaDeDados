@@ -44,6 +44,9 @@ struct Node* inputTree();
 // Função para criar uma árvore binária de busca a partir de um arquivo .txt
 struct Node* txtToTree(string strPath);
 
+// Função que solicita o caminho do arquivo e chama a função para criar a árvore
+struct Node* inputTxtTree();
+
 // Função para verificar se uma árvore binária de busca é perfeita
 bool isPerfectTree(struct Node* ptrNode);
 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "sort.h"
+#include "tree.h"
 
 using namespace std;
 

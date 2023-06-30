@@ -1,11 +1,55 @@
 #include <iostream>
 #include <windows.h> // Para usar Sleep() e mudar a cor do texto
 #include "menu.h"
+#include "sort.h"
+#include "tree.h"
+#include "driverCode.h"
 
 using namespace std;
 
 // Variável global que representa o texto do terminal
 HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+
+// Variável global que armazena a árvore
+struct Node* ptrRoot = nullptr;
+
+// Variável global que armazena os dados da árvore
+treeStats tsTreeStats;
+
+// Função que pede confirmação para sobrescrever a árvore
+bool confirmOverwrite()
+{
+    // Caso a árvore já exista, perguntar se o usuário deseja sobrescrevê-la
+    if (ptrRoot != nullptr)
+    {
+        cout << "A árvore já existe. Deseja sobrescrevê-la? (S/N): ";
+        char cEscolha;
+        cin >> cEscolha;
+
+        // Caso o usuário não queira sobrescrever a árvore, voltar ao menu de manipulação
+        if (cEscolha == 'N' || cEscolha == 'n')
+        {
+            return false;
+        }
+
+        // Caso o usuário queira sobrescrever a árvore, liberar a memória da árvore atual
+        else if (cEscolha == 'S' || cEscolha == 's')
+        {
+            deleteTree(ptrRoot);
+            return true;
+        }
+
+        // Caso o usuário digite uma opção inválida, voltar ao menu de manipulação
+        else
+        {
+            cout << "Opção inválida" << endl;
+            return false;
+        }
+    }
+
+    // Caso a árvore não exista, retornar true
+    else return true;
+}
 
 
 // Exibe o menu principal e retorna a escolha do usuário
@@ -145,16 +189,16 @@ void menuManipulacao()
     switch (iEscolha)
     {
     case 1:
-        cout << "Contruir uma árvore binária a partir de um '.txt'" << endl;
+        if (confirmOverwrite()) ptrRoot = inputTxtTree();
         break;
     case 2:
-        cout << "Costruir uma árvore com os dados digitados" << endl;
+        if (confirmOverwrite()) ptrRoot = inputTree();
         break;
     case 3:
-        cout << "Inserir um elemento" << endl;
+        ptrRoot = inputInsertNode(ptrRoot);
         break;
     case 4:
-        cout << "Remover um elemento" << endl;
+        ptrRoot = inputRemoveNode(ptrRoot);
         break;
     case 5: 
         cout << "Buscar o endereço de memória de um elemento" << endl;
@@ -186,16 +230,25 @@ void menuInfos()
     switch (iEscolha)
     {
     case 1:
-        cout << "Altura da árvore" << endl;
+        cout << "Altura da árvore: " << calculateHeight(ptrRoot) << endl;
         break;
     case 2:
-        cout << "Tamanho da árvore" << endl;
+        // Chama a função para obter os resultados
+        tsTreeStats = getTreeSize(ptrRoot);
+
+        // Exibindo os resultados
+        cout << "Número de nós: " << tsTreeStats.iNumNodes << endl;
+        cout << "Valor mínimo: " << tsTreeStats.iMinValue << endl;
+        cout << "Valor máximo: " << tsTreeStats.iMaxValue << endl;
+        cout << "Número de folhas: " << tsTreeStats.iNumLeaves << endl;
         break;
     case 3:
         cout << "A árvore é completa?" << endl;
+        cout << (isCompleteTree(ptrRoot) ? "Sim" : "Não") << endl;
         break;
     case 4:
         cout << "A árvore é perfeita?" << endl;
+        cout << (isPerfectTree(ptrRoot) ? "Sim" : "Não") << endl;
         break;
     
     // Caso o usuário queira voltar ao menu principal
@@ -268,13 +321,13 @@ void menuPrincipal()
         menuInfos();
         break;
     case 3:
-        cout << "Exibir árvore" << endl;
+        printTreeBFS(ptrRoot);
         break;
     case 4:
         menuOrdenacao();
         break;
     case 5: 
-        cout << "Imprimir driverCode" << endl;
+        printDriverCode();
         break;
     
     // Caso o usuário queira sair do programa, encerra a função menuPrincipal

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "menu.h" // Inclui as funções do menu
+#include "src/menu.h" // Inclui as funções do menu
 
 using namespace std;
 

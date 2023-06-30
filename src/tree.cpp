@@ -154,6 +154,20 @@ struct Node* txtToTree(string strPath)
     return ptrRoot;
 }
 
+// Função que solicita o caminho do arquivo e chama a função para criar a árvore
+struct Node* inputTxtTree()
+{
+    // Variável para armazenar o caminho do arquivo
+    string strPath;
+
+    // Solicita o caminho do arquivo ao usuário
+    cout << "Digite o caminho do arquivo: ";
+    cin >> strPath;
+
+    // Chama a função para criar a árvore a partir do arquivo
+    return txtToTree(strPath);
+}
+
 // Função para verificar se uma árvore binária de busca é perfeita (se todos os nós tem 0 ou 2 filhos)
 bool isPerfectTree(struct Node* ptrNode)
 {
@@ -330,7 +344,8 @@ void deleteTree(struct Node* ptrNode)
 
 
 // Função que calcula a altura da árvore
-int calculateHeight( struct Node* prtNode) {
+int calculateHeight(struct Node* prtNode) 
+{
     if (prtNode == nullptr)
         return 0;
     else {
@@ -344,22 +359,21 @@ int calculateHeight( struct Node* prtNode) {
 }
 
 // Função auxiliar para obter o mínimo entre dois valores inteiros
-int getMin(int a, int b) {
+int getMin(int a, int b) 
+{
     return (a < b) ? a : b;
 }
 
 // Função auxiliar para obter o máximo entre dois valores inteiros
-int getMax(int a, int b) {
+int getMax(int a, int b) 
+{
     return (a > b) ? a : b;
 }
 
 // Função auxiliar para calcular as estatísticas da árvore
 void calculateTreeStats(struct Node* prtNode, treeStats& tsStats) 
 {
-    if (prtNode == nullptr)
-    {
-        return;
-    }
+    if (prtNode == nullptr) return;
 
     // Atualiza as estatísticas com base no nó atual
     tsStats.iNumNodes++;
@@ -396,8 +410,7 @@ treeStats getTreeSize(Node* ptrNode)
 int calculateSize(struct Node* ptrNode) 
 {
     // Verifica se o nó atual é nulo, indicando o final da subárvore
-    if (ptrNode == nullptr)
-        return 0;
+    if (ptrNode == nullptr) return 0;
 
     // Calcula o tamanho das subárvores esquerda e direita recursivamente
     int iLeftSize = calculateSize(ptrNode->ptrLeft);
@@ -411,12 +424,10 @@ int calculateSize(struct Node* ptrNode)
 bool isCompleteTree(struct Node* ptrNode, int iIndex, int iSize) 
 {
     // Verifica se o nó atual é nulo, indicando o final da subárvore
-    if (ptrNode == nullptr)
-        return true;
+    if (ptrNode == nullptr) return true;
 
     //Verifica se o índice atual ultrapassou o tamanho total da árvore, indicando que a subárvore não é completa
-    if (iIndex >= iSize)
-        return false;
+    if (iIndex >= iSize) return false;
 
     return isCompleteTree(ptrNode->ptrLeft, 2 * iIndex + 1, iSize) &&
            isCompleteTree(ptrNode->ptrRight, 2 * iIndex + 2, iSize);
