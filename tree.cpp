@@ -63,6 +63,13 @@ struct Node* stringToTree(struct Node* ptrNode, string strTree)
     // Variável para armazenar o dado convertido para inteiro
     int iPayload;
     // Expressão regular para separar os elementos entre vírgulas
+
+    // Caso a string esteja vazia, retorna nulo
+    if (strTree.empty())
+    {
+        return nullptr;
+    }
+
     regex regex(",");
     sregex_token_iterator iterator(strTree.begin(), strTree.end(), regex, -1);
     sregex_token_iterator endIterator;
@@ -70,6 +77,13 @@ struct Node* stringToTree(struct Node* ptrNode, string strTree)
     // Percorre os elementos separados e os insere na árvore
     while (iterator != endIterator) 
     {
+        /*
+        // Caso o elemento não seja inteiro, retorna nulo
+        if (!regex_match(*iterator, regex("[0-9]+")))
+        {
+            return nullptr;
+        }
+        */
         // Converte o elemento para inteiro
         iPayload = stoi(*iterator);
         // Insere o elemento na árvore
@@ -273,6 +287,27 @@ struct Node* inputRemoveNode(struct Node* ptrNode)
 
     return ptrNode;
 }
+
+// Função para deletar a árvore binária de busca
+void deleteTree(struct Node* ptrNode) 
+{
+    if (ptrNode != nullptr) 
+    {
+    // Deletar recursivamente a sub-árvore esquerda
+    deleteTree(ptrNode->ptrLeft);
+
+    // Deletar recursivamente a sub-árvore direita
+    deleteTree(ptrNode->ptrRight);
+
+    // Deletar o nó atual
+    ptrNode->ptrLeft = nullptr;
+    ptrNode->ptrRight = nullptr;
+    ptrNode = nullptr;
+    delete ptrNode;
+    }
+}
+
+
 
 // Função que calcula a altura da árvore
 int calculateHeight( struct Node* prtNode) {
