@@ -287,3 +287,48 @@ int calculateHeight( struct Node* prtNode) {
         return 1 + max(leftHeight, rightHeight);
     }
 }
+
+// Função auxiliar para obter o mínimo entre dois valores inteiros
+int getMin(int a, int b) {
+    return (a < b) ? a : b;
+}
+
+// Função auxiliar para obter o máximo entre dois valores inteiros
+int getMax(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+// Função auxiliar para calcular as estatísticas da árvore
+void calculateTreeStats(struct Node* prtNode, TreeStats& tsStats) {
+    if (prtNode == nullptr) {
+        return;
+    }
+
+    // Atualiza as estatísticas com base no nó atual
+    tsStats.iNumNodes++;
+    tsStats.iMinValue = getMin(tsStats.iMinValue, prtNode->iData);
+    tsStats.iMaxValue = getMax(tsStats.iMaxValue, prtNode->iData);
+
+    // Verifica se o nó atual é uma folha
+    if (prtNode->ptrLeft == nullptr && prtNode->ptrRight == nullptr) {
+        tsStats.iNumLeaves++;
+    }
+
+    // Calcula as estatísticas das subárvores esquerda e direita recursivamente
+    calculateTreeStats(prtNode->ptrLeft, tsStats);
+    calculateTreeStats(prtNode->ptrRight, tsStats);
+}
+
+// Inicializa as estatísticas da árvore
+TreeStats getTreeSize(Node* prtNode) {
+    TreeStats tsStats;
+    tsStats.iNumNodes = 0;
+    tsStats.iMinValue = numeric_limits<int>::max();
+    tsStats.iMaxValue = numeric_limits<int>::min();
+    tsStats.iNumLeaves = 0;
+
+    // Calcula as estatísticas da árvore
+    calculateTreeStats(prtNode, tsStats);
+
+    return tsStats;
+}

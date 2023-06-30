@@ -142,5 +142,16 @@ int main()
     cout << "Lista encadeada ordenada utilizando Shell Sort: ";
     printList(ptrListShellSort);
 
+    // =================== TAMANHO DA ÁRVORE ===================
+
+    // Chama a função para obter os resultados
+    TreeStats tsStats = getTreeSize(ptrRootTxt);
+
+    // Exibindo os resultados
+    cout << "Número de nós: " << tsStats.iNumNodes << endl;
+    cout << "Valor mínimo: " << tsStats.iMinValue << endl;
+    cout << "Valor máximo: " << tsStats.iMaxValue << endl;
+    cout << "Número de folhas: " << tsStats.iNumLeaves << endl;
+
     return 0;
 }
