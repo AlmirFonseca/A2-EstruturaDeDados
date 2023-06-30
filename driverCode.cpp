@@ -62,6 +62,14 @@ int main()
     cout << endl;
 
 
+    // =================== ALTURA DA ÁRVORE ===================
+    // Calcula a altura da árvore
+    int treeHeight = calculateHeight(ptrRootTxt);
+    
+    // Exibe a altura calculada
+    cout << "Altura da árvore: " << treeHeight << endl;
+
+
     // =============== BASE DE LISTA DUPLAMENTE ENCADEADA ===============
     cout << endl << "---- Base de lista duplamente encadeada: " << endl;
 

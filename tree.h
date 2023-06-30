@@ -41,3 +41,6 @@ struct Node* removeNode(struct Node* ptrNode, int iPayload);
 
 // Função que permite usuário fornecer um elemento para ser removido da árvore
 struct Node* inputRemoveNode(struct Node* ptrNode);
+
+// Função para calcular a altura da árvore
+int calculateHeight(struct Node* prtNode);

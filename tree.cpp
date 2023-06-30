@@ -273,3 +273,17 @@ struct Node* inputRemoveNode(struct Node* ptrNode)
 
     return ptrNode;
 }
+
+// Função que calcula a altura da árvore
+int calculateHeight( struct Node* prtNode) {
+    if (prtNode == NULL)
+        return 0;
+    else {
+        // Calcula a altura das subárvores esquerda e direita
+        int leftHeight = calculateHeight(prtNode->ptrLeft);
+        int rightHeight = calculateHeight(prtNode->ptrRight);
+        
+        // Retorna a altura do nó atual somada à altura da subárvore mais alta
+        return 1 + max(leftHeight, rightHeight);
+    }
+}
