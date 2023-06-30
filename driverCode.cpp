@@ -127,5 +127,12 @@ int main()
     cout << "Lista encadeada ordenada utilizando Insertion Sort: ";
     printList(ptrListInsertionSort);
 
+    // =================== ALTURA DA ÁRVORE ===================
+    // Calcula a altura da árvore
+    int treeHeight = calculateHeight(ptrRootTxt);
+    
+    // Exibe a altura calculada
+    cout << "Altura da árvore: " << treeHeight << endl;
+
     return 0;
 }
