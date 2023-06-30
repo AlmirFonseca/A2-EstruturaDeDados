@@ -13,6 +13,8 @@ int main()
     printTree(ptrRootInput);
     // Verifica se a árvore binária de busca é perfeita
     cout << endl << "A árvore binária de busca é perfeita? " << isPerfectTree(ptrRootInput) << endl;
+    // Verifica se a árvore binária de busca é completa
+    cout << "A árvore binária de busca é completa? " << isCompleteTree(ptrRootInput) << endl;
 
 
     // =============== CRIAÇÃO DA ÁRVORE POR TXT ===============
@@ -22,8 +24,43 @@ int main()
     struct Node* ptrRootTxt = txtToTree("../arvore.txt");
     cout << "Árvore binária de busca criada a partir de um arquivo .txt:";
     printTree(ptrRootTxt);
-    // Verifica se a árvore binária de busca é perfeita
-    cout << endl << "A árvore binária de busca é perfeita? " << isPerfectTree(ptrRootTxt) << endl;
+
+
+    // =================== TAMANHO DA ÁRVORE ===================
+    cout << endl << endl;
+
+    // Chama a função para obter os resultados
+    treeStats tsStats = getTreeSize(ptrRootTxt);
+
+    // Exibindo os resultados
+    cout << "Número de nós: " << tsStats.iNumNodes << endl;
+    cout << "Valor mínimo: " << tsStats.iMinValue << endl;
+    cout << "Valor máximo: " << tsStats.iMaxValue << endl;
+    cout << "Número de folhas: " << tsStats.iNumLeaves << endl;
+
+
+    // =================== ALTURA DA ÁRVORE ===================
+    // Calcula a altura da árvore
+    int treeHeight = calculateHeight(ptrRootTxt);
+    
+    // Exibe a altura calculada
+    cout << "Altura da árvore: " << treeHeight << endl << endl;
+
+
+    // =================== ÁRVORE COMPLETA ===================
+    // Verifica se a árvore é completa
+    if (isCompleteTree(ptrRootTxt))  
+        cout << "A árvore é completa." << endl;
+    else
+        cout << "A árvore não é completa." << endl;
+
+
+    // =================== ÁRVORE PERFEITA ===================
+    // Verifica se a árvore é perfeita
+    if (isPerfectTree(ptrRootTxt))  
+        cout << "A árvore é perfeita." << endl;
+    else
+        cout << "A árvore não é perfeita." << endl;
 
 
     // =============== INSERÇÃO DE ELEMENTO ===============
@@ -60,14 +97,6 @@ int main()
     printTree(ptrRootTxt);
 
     cout << endl;
-
-
-    // =================== ALTURA DA ÁRVORE ===================
-    // Calcula a altura da árvore
-    int treeHeight = calculateHeight(ptrRootTxt);
-    
-    // Exibe a altura calculada
-    cout << "Altura da árvore: " << treeHeight << endl;
 
 
     // =============== BASE DE LISTA DUPLAMENTE ENCADEADA ===============
@@ -141,24 +170,6 @@ int main()
     // Imprime a lista encadeada ordenada
     cout << "Lista encadeada ordenada utilizando Shell Sort: ";
     printList(ptrListShellSort);
-
-    // =================== TAMANHO DA ÁRVORE ===================
-
-    // Chama a função para obter os resultados
-    treeStats tsStats = getTreeSize(ptrRootTxt);
-
-    // Exibindo os resultados
-    cout << "Número de nós: " << tsStats.iNumNodes << endl;
-    cout << "Valor mínimo: " << tsStats.iMinValue << endl;
-    cout << "Valor máximo: " << tsStats.iMaxValue << endl;
-    cout << "Número de folhas: " << tsStats.iNumLeaves << endl;
-
-    // =================== ÁRVORE COMPLETA ===================
-    // Verifica se a árvore é completa
-    if (isCompleteTree(ptrRootTxt))  
-        cout << "A árvore é completa.\n";
-    else
-        cout << "A árvore não é completa.\n";
 
     return 0;
 }
