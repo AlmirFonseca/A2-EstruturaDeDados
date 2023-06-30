@@ -15,6 +15,9 @@ struct ListNode* createListNode(int iPayload);
 // Insere um nó no final da lista
 void insertList(struct ListNode** ptrHead, int iPayload);
 
+// Insere um nó antes de um nó específico
+void insertBefore(struct ListNode** ptrHead, struct ListNode* ptrNextNode, int iPayload);
+
 // Insere um nó após um nó específico
 void insertAfter(struct ListNode* ptrPrevNode, int iPayload);
 
@@ -41,3 +44,6 @@ struct ListNode* bubbleSort(struct Node* ptrNodeTree);
 
 // Converte a árvore numa lista e a converte utilizando o algoritmo de Selection Sort
 struct ListNode* selectionSort(struct Node* ptrNodeTree);
+
+// Converte a árvore numa lista e a converte utilizando o algoritmo de Selection Sort
+struct ListNode* insertionSort(struct Node* ptrNodeTree);

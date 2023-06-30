@@ -75,6 +75,9 @@ int main()
     insertList(&ptrListHead, 4);
     insertList(&ptrListHead, 7);
 
+    insertBefore(&ptrListHead, ptrListHead, 9);
+    insertAfter(ptrListHead, 5);
+
     // Imprime a lista encadeada
     cout << "Lista encadeada criada: ";
     printList(ptrListHead);
@@ -116,6 +119,13 @@ int main()
     // Imprime a lista encadeada ordenada
     cout << "Lista encadeada ordenada utilizando Selection Sort: ";
     printList(ptrListSelectionSort);
+
+    // Ordena a lista encadeada utilizando Insertion Sort
+    struct ListNode* ptrListInsertionSort =  insertionSort(ptrRootTxt);
+
+    // Imprime a lista encadeada ordenada
+    cout << "Lista encadeada ordenada utilizando Insertion Sort: ";
+    printList(ptrListInsertionSort);
 
     return 0;
 }

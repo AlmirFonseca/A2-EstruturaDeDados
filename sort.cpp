@@ -61,6 +61,42 @@ void insertList(struct ListNode** ptrHead, int iPayload)
     }
 }
 
+// Insere um nó antes de um nó específico
+void insertBefore(struct ListNode** ptrHead, struct ListNode* ptrNextNode, int iPayload)
+{
+    // Se a lista for fazia, não há o que fazer, criamos um novo nó e apontamos a head para ele
+    if (*ptrHead == nullptr)
+    {
+        *ptrHead = createListNode(iPayload);
+        return;
+    }
+
+    // Se o nó seguinte for nulo, inserimos no fim da lista
+    if (ptrNextNode == nullptr)
+    {
+        insertList(ptrHead, iPayload);
+        return;
+    }
+
+    // Criamos um novo nó
+    struct ListNode* newNode = createListNode(iPayload);
+
+    // Atualizamos os ponteiros next e prev do novo nó
+    newNode->ptrNext = ptrNextNode;
+    newNode->ptrPrev = ptrNextNode->ptrPrev;
+
+    // Atualizamos o ponteiro prev do nó seguinte
+    if (ptrNextNode->ptrPrev != nullptr)
+        ptrNextNode->ptrPrev->ptrNext = newNode;
+
+    // Atualizamos o ponteiro prev do nó seguinte
+    ptrNextNode->ptrPrev = newNode;
+
+    // Se o nó seguinte for a head, atualizamos a head
+    if (*ptrHead == ptrNextNode)
+        *ptrHead = newNode;
+}
+
 // Insere um nó após um nó específico
 void insertAfter(struct ListNode* ptrPrevNode, int iPayload)
 {
@@ -283,6 +319,12 @@ struct ListNode* selectionSort(struct Node* ptrNodeTree)
     // Converte a árvore para uma lista encadeada
     struct ListNode* ptrListHead = treeToList(ptrNodeTree);
 
+    // Se a lista estiver vazia ou tiver apenas um elemento, não há o que ordenar
+    if (ptrListHead == nullptr || ptrListHead->ptrNext == nullptr)
+    {
+        return ptrListHead;
+    }
+
     // Cria um ponteiro para percorrer a lista (outerLoop)
     struct ListNode* ptrOuterLoop = ptrListHead;
 
@@ -312,6 +354,74 @@ struct ListNode* selectionSort(struct Node* ptrNodeTree)
 
         // Avança o ponteiro ao final do outerLoop
         ptrOuterLoop = ptrOuterLoop->ptrNext;
+    }
+
+    // Retorna o ponteiro da lista ordenada
+    return ptrListHead;
+}
+
+// Converte a árvore numa lista e a converte utilizando o algoritmo de Selection Sort
+struct ListNode* insertionSort(struct Node* ptrNodeTree)
+{
+    // Converte a árvore para uma lista encadeada
+    struct ListNode* ptrListHead = treeToList(ptrNodeTree);
+
+    // Se a lista estiver vazia ou tiver apenas um elemento, não há o que ordenar
+    if (ptrListHead == nullptr || ptrListHead->ptrNext == nullptr)
+    {
+        // Retorna o ponteiro da lista naturalmente ordenada
+        return ptrListHead;
+    }
+
+    // Cria um ponteiro para armazenar a parte ordenada da lista
+    struct ListNode* ptrSorted = ptrListHead;
+
+    // Cria um ponteiro para percorrer a lista
+    struct ListNode* ptrCurrent = ptrListHead->ptrNext;
+
+    // Percorre a lista até o seu fim
+    while(ptrCurrent != nullptr)
+    {
+        // Armazena o próximo nó da lista a ser percorrido
+        struct ListNode* ptrCurrentNext = ptrCurrent->ptrNext;
+
+        // Se o nó atual for maior que o último nó da parte ordenada da lista
+        if (ptrCurrent->iData >= ptrSorted->iData){
+            // Avanço o ponteiro da parte ordenada da lista
+            ptrSorted = ptrSorted->ptrNext;
+        }
+        // Caso o nó atual seja menor que o último nó da parte ordenada da lista
+        else{
+            // Cria um ponteiro para percorrer a parte ordenada da lista
+            struct ListNode* ptrSortedTemp = ptrListHead;
+
+            // Percorre a parte ordenada da lista até o seu fim
+            while(ptrSortedTemp != ptrSorted->ptrNext)
+            {
+                // Caso o nó atual seja menor que o nó da parte ordenada da lista
+                if (ptrCurrent->iData < ptrSortedTemp->iData)
+                {
+
+                    // Armazena o nó atual
+                    int iCurrentPayload = ptrCurrent->iData;
+
+                    // Deleta o nó atual da sua posição original
+                    deleteNode(&ptrListHead, ptrCurrent);
+
+                    // Insere o nó atual na sua nova posição
+                    insertBefore(&ptrListHead, ptrSortedTemp, iCurrentPayload);
+
+                    // Interrompe o loop
+                    break;
+                }
+
+                // Avança o ponteiro no interior da parte ordenada da lista
+                ptrSortedTemp = ptrSortedTemp->ptrNext;
+            }
+        }
+
+        // Avança o ponteiro da lista
+        ptrCurrent = ptrCurrentNext;
     }
 
     // Retorna o ponteiro da lista ordenada
