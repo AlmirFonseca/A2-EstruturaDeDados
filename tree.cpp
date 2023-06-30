@@ -399,3 +399,73 @@ bool isCompleteTree(struct Node* ptrNode) {
 
     return isCompleteTree(ptrNode, 0, iSize);
 }
+
+// Função que adiciona um ponteiro do nó de uma arvóre em uma fila
+void enqueueNode(struct QueueNode** ptrQueue, struct Node* ptrNode, int iLevel)
+{
+    // Cria um novo nó da fila e atribui o ponteiro do nó da árvore
+    struct QueueNode* ptrNewQueueNode = new struct QueueNode;
+    ptrNewQueueNode->ptrCurrentNode = ptrNode;
+    ptrNewQueueNode->iHeight = iLevel;
+    ptrNewQueueNode->ptrNext = nullptr;
+
+    // Se a fila estiver vazia, o novo nó será o primeiro
+    if (*ptrQueue == nullptr)
+    {
+        (*ptrQueue) = ptrNewQueueNode;
+    }
+
+    // Se a fila não estiver vazia, o novo nó será adicionado ao final da fila
+    else
+    {
+        struct QueueNode* ptrCurrent = *ptrQueue;
+        while (ptrCurrent->ptrNext != nullptr) ptrCurrent = ptrCurrent->ptrNext;
+        ptrCurrent->ptrNext = ptrNewQueueNode;
+    }
+}
+
+
+// Função para imprimir a árvore binária de busca utilizando BFS
+void printTreeBFS(struct Node* ptrNode)
+{
+    struct QueueNode* ptrQueueRoot = nullptr;
+
+    // Se a árvore estiver vazia, retorna
+    if (ptrNode == nullptr)
+    {
+        return;
+    }
+
+    // Variável para armazenar a altura atual
+    int iCurrentHeight = 0;
+
+    // Adiciona o nó raiz na fila
+    enqueueNode(&ptrQueueRoot, ptrNode, iCurrentHeight);
+
+    cout << endl;
+
+    // Enquanto a fila não estiver vazia
+    while (ptrQueueRoot != nullptr)
+    {
+        // Se a altura do nó atual for diferente da altura anterior, pula uma linha
+        if (ptrQueueRoot->iHeight != iCurrentHeight)
+        {
+            cout << endl;
+            iCurrentHeight = ptrQueueRoot->iHeight;
+        }
+
+        // Imprime o valor do nó atual
+        cout << ptrQueueRoot->ptrCurrentNode->iData << " ";
+
+        // Adiciona os filhos do nó atual na fila
+        if (ptrQueueRoot->ptrCurrentNode->ptrLeft != nullptr) enqueueNode(&ptrQueueRoot, ptrQueueRoot->ptrCurrentNode->ptrLeft, ptrQueueRoot->iHeight + 1);
+        if (ptrQueueRoot->ptrCurrentNode->ptrRight != nullptr) enqueueNode(&ptrQueueRoot, ptrQueueRoot->ptrCurrentNode->ptrRight, ptrQueueRoot->iHeight + 1);
+
+        // Remove o nó atual da fila e libera a memória
+        struct QueueNode* ptrTemp = ptrQueueRoot;
+        ptrQueueRoot = ptrQueueRoot->ptrNext;
+        free(ptrTemp);
+    }
+
+    cout << endl;
+}

@@ -12,6 +12,20 @@ struct Node
     struct Node* ptrRight;
 };
 
+// Estrutura para armazenar a fila de nós da árvore
+struct QueueNode
+{
+    struct Node* ptrCurrentNode; // Ponteiro para o nó atual da fila
+    int iHeight; // Altura do nó atual
+    struct QueueNode* ptrNext; // Ponteiro para a próxima posição da fila
+};
+
+// Função que adiciona um ponteiro do nó de uma arvóre em uma fila
+void enqueueNode(struct QueueNode** ptrQueue, struct Node* ptrNode, int iLevel);
+
+// Função para imprimir a árvore binária de busca utilizando BFS
+void printTreeBFS(struct Node* ptrNode);
+
 // Função para criar um novo nó a partir de um dado
 struct Node* newNode(int iPayload);
 
