@@ -178,6 +178,5 @@ int main()
     cout << "Árvore binária de busca impressa utilizando BFS: ";
     printTreeBFS(ptrRootTxt);
 
-
     return 0;
 }

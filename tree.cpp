@@ -55,6 +55,8 @@ void printTree(struct Node* ptrNode)
     }
     
 }
+
+// Função que, dado uma string separada por vírgulas, cria uma árvore binária de busca
 Node* stringToTree(Node* ptrNode, string strTree)
 {
     // Verificar se a string está vazia
@@ -190,6 +192,13 @@ struct Node* inputInsertNode(struct Node* ptrNode)
     cout << "Digite o elemento a ser inserido: ";
     cin >> iPayload;
 
+    // Verifica se o elemento é válido
+    if (cin.fail())
+    {
+        cout << "Erro: o elemento deve ser um número inteiro." << endl;
+        return ptrNode;
+    }
+
     // Chama a função para inserir o elemento na árvore
     ptrNode = insertNode(ptrNode, iPayload);
 
@@ -223,7 +232,7 @@ struct Node* removeNode(struct Node* ptrNode, int iPayload)
             struct Node* ptrRightTemp = ptrNode->ptrRight;
 
             // Exclui o nó
-            free(ptrNode);
+            delete ptrNode;
 
             // Retorna o filho direito do nó excluído
             return ptrRightTemp;
@@ -236,7 +245,7 @@ struct Node* removeNode(struct Node* ptrNode, int iPayload)
             struct Node* ptrLeftTemp = ptrNode->ptrLeft;
 
             // Exclui o nó
-            free(ptrNode);
+            delete ptrNode;
 
             // Retorna o filho esquerdo do nó excluído
             return ptrLeftTemp;
@@ -286,6 +295,13 @@ struct Node* inputRemoveNode(struct Node* ptrNode)
     cout << "Digite o elemento a ser removido: ";
     cin >> iPayload;
 
+    // Verifica se o elemento é válido
+    if (cin.fail())
+    {
+        cout << "Erro: o elemento deve ser um número inteiro." << endl;
+        return ptrNode;
+    }
+
     // Chama a função para remover o elemento da árvore
     ptrNode = removeNode(ptrNode, iPayload);
 
@@ -315,7 +331,7 @@ void deleteTree(struct Node* ptrNode)
 
 // Função que calcula a altura da árvore
 int calculateHeight( struct Node* prtNode) {
-    if (prtNode == NULL)
+    if (prtNode == nullptr)
         return 0;
     else {
         // Calcula a altura das subárvores esquerda e direita
@@ -338,8 +354,10 @@ int getMax(int a, int b) {
 }
 
 // Função auxiliar para calcular as estatísticas da árvore
-void calculateTreeStats(struct Node* prtNode, treeStats& tsStats) {
-    if (prtNode == nullptr) {
+void calculateTreeStats(struct Node* prtNode, treeStats& tsStats) 
+{
+    if (prtNode == nullptr)
+    {
         return;
     }
 
@@ -349,7 +367,8 @@ void calculateTreeStats(struct Node* prtNode, treeStats& tsStats) {
     tsStats.iMaxValue = getMax(tsStats.iMaxValue, prtNode->iData);
 
     // Verifica se o nó atual é uma folha
-    if (prtNode->ptrLeft == nullptr && prtNode->ptrRight == nullptr) {
+    if (prtNode->ptrLeft == nullptr && prtNode->ptrRight == nullptr) 
+    {
         tsStats.iNumLeaves++;
     }
 
@@ -359,7 +378,8 @@ void calculateTreeStats(struct Node* prtNode, treeStats& tsStats) {
 }
 
 // Inicializa as estatísticas da árvore
-treeStats getTreeSize(Node* ptrNode) {
+treeStats getTreeSize(Node* ptrNode) 
+{
     treeStats tsStats;
     tsStats.iNumNodes = 0;
     tsStats.iMinValue = ptrNode->iData;
@@ -373,18 +393,23 @@ treeStats getTreeSize(Node* ptrNode) {
 }
 
 // Função que calcula o tamanho da árvore
-int calculateSize(struct Node* ptrNode) {
+int calculateSize(struct Node* ptrNode) 
+{
+    // Verifica se o nó atual é nulo, indicando o final da subárvore
     if (ptrNode == nullptr)
         return 0;
 
+    // Calcula o tamanho das subárvores esquerda e direita recursivamente
     int iLeftSize = calculateSize(ptrNode->ptrLeft);
     int iRightSize = calculateSize(ptrNode->ptrRight);
 
+    // Retorna o tamanho da subárvore atual somado ao tamanho das subárvores esquerda e direita
     return iLeftSize + iRightSize + 1;
 }
 
 // Função auxiliar para verificar se a árvore é completa
-bool isCompleteTree(struct Node* ptrNode, int iIndex, int iSize) {
+bool isCompleteTree(struct Node* ptrNode, int iIndex, int iSize) 
+{
     // Verifica se o nó atual é nulo, indicando o final da subárvore
     if (ptrNode == nullptr)
         return true;
@@ -398,7 +423,8 @@ bool isCompleteTree(struct Node* ptrNode, int iIndex, int iSize) {
 }
 
 // Função que verifica se a árvore é completa
-bool isCompleteTree(struct Node* ptrNode) {
+bool isCompleteTree(struct Node* ptrNode) 
+{
     int iSize = calculateSize(ptrNode);
 
     return isCompleteTree(ptrNode, 0, iSize);
