@@ -1,10 +1,17 @@
 #include <iostream>
 #include <string>
+#include <chrono> // Para usar o tempo de execução
 #include <fstream> // Para usar arquivos .txt
 #include <regex> // Para usar expressões regulares
+#include "header.h"
 #include "tree.h" // Inclui funções e estruturas para manipulação de árvores 
 
 using namespace std;
+using namespace std::chrono; // Para usar o tempo de execução
+
+// Inicializa as variáveis de tempo
+time_point<high_resolution_clock> tpStart;
+time_point<high_resolution_clock> tpEnd;
 
 
 // Função para criar um novo nó
@@ -92,7 +99,7 @@ Node* stringToTree(Node* ptrNode, string strTree)
         
         ++iterator;
     }
-    
+
     return ptrNode;
 }
 
@@ -123,6 +130,9 @@ struct Node* inputTree()
 // Função para criar uma árvore binária de busca a partir de um arquivo .txt
 struct Node* txtToTree(string strPath)
 {
+    // Inicia a contagem do tempo de execução
+    tpStart = high_resolution_clock::now(); 
+
     // Cria um ponteiro para o nó raiz e o inicializa como nulo
     struct Node* ptrRoot = nullptr;
 
@@ -150,6 +160,12 @@ struct Node* txtToTree(string strPath)
     {
         cout << "Erro ao abrir o arquivo." << endl;
     }
+
+    // Finaliza a contagem do tempo de execução
+    tpEnd = high_resolution_clock::now(); 
+    
+    // Imprime o tempo de execução
+    printTime(tpStart, tpEnd);
 
     return ptrRoot;
 }
@@ -213,8 +229,17 @@ struct Node* inputInsertNode(struct Node* ptrNode)
         return ptrNode;
     }
 
+    // Inicia a contagem do tempo de execução
+    tpStart = high_resolution_clock::now(); 
+
     // Chama a função para inserir o elemento na árvore
     ptrNode = insertNode(ptrNode, iPayload);
+
+    // Finaliza a contagem do tempo de execução
+    tpEnd = high_resolution_clock::now();
+
+    // Imprime o tempo de execução
+    printTime(tpStart, tpEnd);
 
     return ptrNode;
 }
@@ -316,8 +341,17 @@ struct Node* inputRemoveNode(struct Node* ptrNode)
         return ptrNode;
     }
 
+    // Inicia a contagem do tempo de execução
+    tpStart = high_resolution_clock::now();
+
     // Chama a função para remover o elemento da árvore
     ptrNode = removeNode(ptrNode, iPayload);
+
+    // Finaliza a contagem do tempo de execução
+    tpEnd = high_resolution_clock::now();
+
+    // Imprime o tempo de execução
+    printTime(tpStart, tpEnd);
 
     return ptrNode;
 }
@@ -350,11 +384,11 @@ int calculateHeight(struct Node* prtNode)
         return 0;
     else {
         // Calcula a altura das subárvores esquerda e direita
-        int leftHeight = calculateHeight(prtNode->ptrLeft);
-        int rightHeight = calculateHeight(prtNode->ptrRight);
+        int iLeftHeight = calculateHeight(prtNode->ptrLeft);
+        int iRightHeight = calculateHeight(prtNode->ptrRight);
         
         // Retorna a altura do nó atual somada à altura da subárvore mais alta
-        return 1 + max(leftHeight, rightHeight);
+        return 1 + max(iLeftHeight, iRightHeight);
     }
 }
 
@@ -469,6 +503,9 @@ void enqueueNode(struct QueueNode** ptrQueue, struct Node* ptrNode, int iLevel)
 // Função para imprimir a árvore binária de busca utilizando BFS
 void printTreeBFS(struct Node* ptrNode)
 {
+    // Inicia a contagem do tempo de execução
+    tpStart = high_resolution_clock::now(); 
+
     struct QueueNode* ptrQueueRoot = nullptr;
 
     // Se a árvore estiver vazia, retorna
@@ -509,4 +546,10 @@ void printTreeBFS(struct Node* ptrNode)
     }
 
     cout << endl;
+
+    // Finaliza a contagem do tempo de execução
+    tpEnd = high_resolution_clock::now();
+
+    // Imprime o tempo de execução
+    printTime(tpStart, tpEnd);
 }

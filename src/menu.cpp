@@ -1,5 +1,7 @@
 #include <iostream>
 #include <windows.h> // Para usar Sleep() e mudar a cor do texto
+#include <chrono>
+#include "header.h"
 #include "menu.h"
 #include "sort.h"
 #include "tree.h"
@@ -15,6 +17,14 @@ struct Node* ptrRoot = nullptr;
 
 // Variável global que armazena os dados da árvore
 treeStats tsTreeStats;
+
+// Inicializa as variáveis de tempo
+time_point<high_resolution_clock> start;
+time_point<high_resolution_clock> stop;
+
+// Variável global que armazena a lista resultante da ordenação da árvore
+struct ListNode* orderedList;
+
 
 // Função que pede confirmação para sobrescrever a árvore
 bool confirmOverwrite()
@@ -49,6 +59,24 @@ bool confirmOverwrite()
 
     // Caso a árvore não exista, retornar true
     else return true;
+}
+
+
+// Exibe o tempo de execução do processo
+void printTime(time_point<high_resolution_clock> tpTimeStart, time_point<high_resolution_clock> tpTimeStop)
+{
+    // Calcula o tempo de execução em nanosegundos
+    auto dcTimeDuration = duration_cast<nanoseconds>(tpTimeStop - tpTimeStart);
+    // Armazena o tempo de execução em um long long int
+    long long int lliTime = dcTimeDuration.count();
+
+    cout << "Tempo de execução: ";
+
+    // Exibe o tempo de execução, ajustando a sua escala conforme necessário
+    if (lliTime < 1e3) cout << lliTime << " nanosegundos (ns)" << endl;
+    else if (lliTime < 1e6) cout << lliTime/1e3 << " microsegundos (us)" << endl;
+    else if (lliTime < 1e9) cout << lliTime/1e6 << " milisegundos (ms)" << endl;
+    else cout << lliTime/1e9 << " segundos (s)" << endl;
 }
 
 
@@ -230,9 +258,17 @@ void menuInfos()
     switch (iEscolha)
     {
     case 1:
+        // Calcula a altura da árvore e mede o tempo de execução
+        start = chrono::high_resolution_clock::now();
         cout << "Altura da árvore: " << calculateHeight(ptrRoot) << endl;
+        stop = chrono::high_resolution_clock::now();
+        printTime(start, stop);
+
         break;
     case 2:
+        // Calcula o tamanho da árvore e mede o tempo de execução
+        start = chrono::high_resolution_clock::now();
+
         // Chama a função para obter os resultados
         tsTreeStats = getTreeSize(ptrRoot);
 
@@ -241,14 +277,28 @@ void menuInfos()
         cout << "Valor mínimo: " << tsTreeStats.iMinValue << endl;
         cout << "Valor máximo: " << tsTreeStats.iMaxValue << endl;
         cout << "Número de folhas: " << tsTreeStats.iNumLeaves << endl;
+
+        stop = chrono::high_resolution_clock::now();
+        printTime(start, stop);
+
         break;
     case 3:
+        // Calcula se a árvore é completa e mede o tempo de execução
+        start = chrono::high_resolution_clock::now();
         cout << "A árvore é completa?" << endl;
         cout << (isCompleteTree(ptrRoot) ? "Sim" : "Não") << endl;
+        stop = chrono::high_resolution_clock::now();
+        printTime(start, stop);
+
         break;
     case 4:
+        // Calcula se a árvore é perfeita e mede o tempo de execução
+        start = chrono::high_resolution_clock::now();
         cout << "A árvore é perfeita?" << endl;
         cout << (isPerfectTree(ptrRoot) ? "Sim" : "Não") << endl;
+        stop = chrono::high_resolution_clock::now();
+        printTime(start, stop);
+
         break;
     
     // Caso o usuário queira voltar ao menu principal
@@ -277,16 +327,73 @@ void menuOrdenacao()
     switch (iEscolha)
     {
     case 1:
-        cout << "Ordenar a lista representada pela árvore por Bubble Sort" << endl;
+        // Ordena a lista por Bubble Sort e mede o tempo de execução
+        start = chrono::high_resolution_clock::now();
+        orderedList = bubbleSort(ptrRoot);
+
+        // Exibindo a lista ordenada
+        cout << "Lista ordenada: ";
+        printList(orderedList);
+        cout << endl;
+
+        // Imprimindo o tempo de execução
+        stop = chrono::high_resolution_clock::now();
+        printTime(start, stop);
+
+        // Liberando a memória da lista ordenada
+        deleteList(&orderedList);
+
         break;
     case 2:
-        cout << "Ordenar a lista representada pela árvore por Selection Sort" << endl;
+        // Ordena a lista por Selection Sort e mede o tempo de execução
+        start = chrono::high_resolution_clock::now();
+        orderedList = selectionSort(ptrRoot);
+
+        // Exibindo a lista ordenada
+        cout << "Lista ordenada: ";
+        printList(orderedList);
+
+        // Imprimindo o tempo de execução
+        stop = chrono::high_resolution_clock::now();
+        printTime(start, stop);
+
+        // Liberando a memória da lista ordenada
+        deleteList(&orderedList);
+
         break;
     case 3:
-        cout << "Ordenar a lista representada pela árvore por Insertion Sort" << endl;
+        // Ordena a lista por Insertion Sort e mede o tempo de execução
+        start = chrono::high_resolution_clock::now();
+        orderedList = insertionSort(ptrRoot);
+
+        // Exibindo a lista ordenada
+        cout << "Lista ordenada: ";
+        printList(orderedList);
+
+        // Imprimindo o tempo de execução
+        stop = chrono::high_resolution_clock::now();
+        printTime(start, stop);
+
+        // Liberando a memória da lista ordenada
+        deleteList(&orderedList);
+
         break;
     case 4:
-        cout << "Ordenar a lista representada pela árvore por Shell Sort" << endl;
+        // Ordena a lista por Shell Sort e mede o tempo de execução
+        start = chrono::high_resolution_clock::now();
+        orderedList = shellSort(ptrRoot);
+
+        // Exibindo a lista ordenada
+        cout << "Lista ordenada: ";
+        printList(orderedList);
+
+        // Imprimindo o tempo de execução
+        stop = chrono::high_resolution_clock::now();
+        printTime(start, stop);
+
+        // Liberando a memória da lista ordenada
+        deleteList(&orderedList);
+
         break;
     
     // Caso o usuário queira voltar ao menu principal

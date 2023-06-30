@@ -2,24 +2,6 @@
 #include <string>
 using namespace std;
 
-// Estrutura para um nó da árvore binária de busca
-struct Node
-{
-    // Dado armazenado no nó
-    int iData;
-    // Ponteiros para os nós filhos
-    struct Node* ptrLeft; 
-    struct Node* ptrRight;
-};
-
-// Estrutura para armazenar a fila de nós da árvore
-struct QueueNode
-{
-    struct Node* ptrCurrentNode; // Ponteiro para o nó atual da fila
-    int iHeight; // Altura do nó atual
-    struct QueueNode* ptrNext; // Ponteiro para a próxima posição da fila
-};
-
 // Função que adiciona um ponteiro do nó de uma arvóre em uma fila
 void enqueueNode(struct QueueNode** ptrQueue, struct Node* ptrNode, int iLevel);
 
