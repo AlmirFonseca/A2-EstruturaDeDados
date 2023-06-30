@@ -43,10 +43,11 @@ struct Node* removeNode(struct Node* ptrNode, int iPayload);
 struct Node* inputRemoveNode(struct Node* ptrNode);
 
 // Função para calcular a altura da árvore
-int calculateHeight(struct Node* prtNode);
+int calculateHeight(struct Node* ptrNode);
 
 // Informações sobre a estrutura da árvore
-struct treeStats {
+struct treeStats 
+{
     int iNumNodes;     // Número de nós
     int iMinValue;     // Valor mínimo
     int iMaxValue;     // Valor máximo
@@ -54,10 +55,10 @@ struct treeStats {
 };
 
 // Função para obter o tamanho da árvore
-treeStats getTreeSize(struct Node* prtNode);   
+treeStats getTreeSize(struct Node* ptrNode);   
 
 // Função que calcula o tamanho da árvore
-int calculateSize(struct Node* prtNode);
+int calculateSize(struct Node* ptrNode);
 
 // Função que verifica se a árvore é completa
-bool isCompleteTree(struct Node* prtNode);
+bool isCompleteTree(struct Node* ptrNode);

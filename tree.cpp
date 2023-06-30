@@ -320,47 +320,47 @@ void calculateTreeStats(struct Node* prtNode, treeStats& tsStats) {
 }
 
 // Inicializa as estatísticas da árvore
-treeStats getTreeSize(Node* prtNode) {
+treeStats getTreeSize(Node* ptrNode) {
     treeStats tsStats;
     tsStats.iNumNodes = 0;
-    tsStats.iMinValue = numeric_limits<int>::max();
-    tsStats.iMaxValue = numeric_limits<int>::min();
+    tsStats.iMinValue = ptrNode->iData;
+    tsStats.iMaxValue = ptrNode->iData;
     tsStats.iNumLeaves = 0;
 
     // Calcula as estatísticas da árvore
-    calculateTreeStats(prtNode, tsStats);
+    calculateTreeStats(ptrNode, tsStats);
 
     return tsStats;
 }
 
 // Função que calcula o tamanho da árvore
-int calculateSize(struct Node* prtNode) {
-    if (prtNode == nullptr)
+int calculateSize(struct Node* ptrNode) {
+    if (ptrNode == nullptr)
         return 0;
 
-    int leftSize = calculateSize(prtNode->ptrLeft);
-    int rightSize = calculateSize(prtNode->ptrRight);
+    int iLeftSize = calculateSize(ptrNode->ptrLeft);
+    int iRightSize = calculateSize(ptrNode->ptrRight);
 
-    return leftSize + rightSize + 1;
+    return iLeftSize + iRightSize + 1;
 }
 
-// Função que verifica se a árvore é completa
-bool isCompleteTree(struct Node* prtNode, int iIndex, int iSize) {
+// Função auxiliar para verificar se a árvore é completa
+bool isCompleteTree(struct Node* ptrNode, int iIndex, int iSize) {
     // Verifica se o nó atual é nulo, indicando o final da subárvore
-    if (prtNode == nullptr)
+    if (ptrNode == nullptr)
         return true;
 
     //Verifica se o índice atual ultrapassou o tamanho total da árvore, indicando que a subárvore não é completa
     if (iIndex >= iSize)
         return false;
 
-    return isCompleteTree(prtNode->ptrLeft, 2 * iIndex + 1, iSize) &&
-           isCompleteTree(prtNode->ptrRight, 2 * iIndex + 2, iSize);
+    return isCompleteTree(ptrNode->ptrLeft, 2 * iIndex + 1, iSize) &&
+           isCompleteTree(ptrNode->ptrRight, 2 * iIndex + 2, iSize);
 }
 
-bool isCompleteTree(struct Node* prtNode) {
-    int iHeight = calculateHeight(prtNode);
-    int iSize = calculateSize(prtNode);
+// Função que verifica se a árvore é completa
+bool isCompleteTree(struct Node* ptrNode) {
+    int iSize = calculateSize(ptrNode);
 
-    return isCompleteTree(prtNode, 0, iSize);
+    return isCompleteTree(ptrNode, 0, iSize);
 }
