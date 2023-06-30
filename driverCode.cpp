@@ -19,7 +19,7 @@ int main()
     cout << endl << "---- Criação de árvore por txt: " << endl;
 
     // Cria uma árvore binária de busca a partir de um arquivo .txt
-    struct Node* ptrRootTxt = txtToTree("./arvore.txt");
+    struct Node* ptrRootTxt = txtToTree("../arvore.txt");
     cout << "Árvore binária de busca criada a partir de um arquivo .txt:";
     printTree(ptrRootTxt);
     // Verifica se a árvore binária de busca é perfeita
@@ -145,7 +145,7 @@ int main()
     // =================== TAMANHO DA ÁRVORE ===================
 
     // Chama a função para obter os resultados
-    TreeStats tsStats = getTreeSize(ptrRootTxt);
+    treeStats tsStats = getTreeSize(ptrRootTxt);
 
     // Exibindo os resultados
     cout << "Número de nós: " << tsStats.iNumNodes << endl;

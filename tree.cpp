@@ -299,7 +299,7 @@ int getMax(int a, int b) {
 }
 
 // Função auxiliar para calcular as estatísticas da árvore
-void calculateTreeStats(struct Node* prtNode, TreeStats& tsStats) {
+void calculateTreeStats(struct Node* prtNode, treeStats& tsStats) {
     if (prtNode == nullptr) {
         return;
     }
