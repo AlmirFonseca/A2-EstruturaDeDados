@@ -39,7 +39,7 @@ struct ListNode* treeToList(struct Node* ptrNodeTree);
 // Troca dois nós de posição numa lista
 void swapListNodes(struct ListNode** ptrHead, struct ListNode* ptrNodeA, struct ListNode* ptrNodeB);
 
-// Ordena a lista utilizando o algoritmo de Bubble Sort
+// Converte a árvore numa lista e a converte utilizando o algoritmo de Bubble Sort
 struct ListNode* bubbleSort(struct Node* ptrNodeTree);
 
 // Converte a árvore numa lista e a converte utilizando o algoritmo de Selection Sort
@@ -47,3 +47,6 @@ struct ListNode* selectionSort(struct Node* ptrNodeTree);
 
 // Converte a árvore numa lista e a converte utilizando o algoritmo de Selection Sort
 struct ListNode* insertionSort(struct Node* ptrNodeTree);
+
+// Converte a árvore numa lista e a converte utilizando o algoritmo de Shell Sort
+struct ListNode* shellSort(struct Node* ptrNodeTree);

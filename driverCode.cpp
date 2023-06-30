@@ -127,5 +127,12 @@ int main()
     cout << "Lista encadeada ordenada utilizando Insertion Sort: ";
     printList(ptrListInsertionSort);
 
+    // Ordena a lista encadeada utilizando Shell Sort
+    struct ListNode* ptrListShellSort =  shellSort(ptrRootTxt);
+
+    // Imprime a lista encadeada ordenada
+    cout << "Lista encadeada ordenada utilizando Shell Sort: ";
+    printList(ptrListShellSort);
+
     return 0;
 }

@@ -427,3 +427,105 @@ struct ListNode* insertionSort(struct Node* ptrNodeTree)
     // Retorna o ponteiro da lista ordenada
     return ptrListHead;
 }
+
+// Converte a árvore numa lista e a converte utilizando o algoritmo de Shell Sort
+struct ListNode* shellSort(struct Node* ptrNodeTree)
+{
+    // Converte a árvore para uma lista encadeada
+    struct ListNode* ptrListHead = treeToList(ptrNodeTree);
+
+    // Se a lista estiver vazia ou tiver apenas um elemento, não há o que ordenar
+    if (ptrListHead == nullptr || ptrListHead->ptrNext == nullptr)
+    {
+        return ptrListHead;
+    }
+    
+    // Criamos dois ponteiros temporários para percorrer a lista
+    struct ListNode* ptrTempNodeA = ptrListHead;
+    struct ListNode* ptrTempNodeB = nullptr;
+
+    // Criamos um inteiro para armazenar o payload do ponteiro temporário
+    int iTempPayload = 0;
+
+    // Precisamos medir o comprimento (número de nós) da lista
+    // Para isso, iniciamos uma variável acumuladora com valor 0
+    int iListSize = 0;
+    // E percorremos a lista até o seu fim, incrementando a variável acumuladora
+    while (ptrTempNodeA != nullptr)
+    {
+        iListSize++;
+        ptrTempNodeA = ptrTempNodeA->ptrNext;
+    }
+    
+    // Definimos o gap inicial como metade do tamanho da lista
+    int iGap = iListSize/2;
+    
+    // Enquanto o gap for maior que 0
+    while (iGap > 0)
+    {
+        // Avança com o ponteiro A até o nó que está a iGap posições de distância do início da lista
+        for (int iIndexA = 0; iIndexA < iListSize - iGap; iIndexA++)
+        {
+            // Inicia o ponteiro A como a head da lista
+            ptrTempNodeA = ptrListHead;
+
+            // Avança o ponteiro A até o índice determinado para essa iteração
+            for (int iIndexB = 0; iIndexB < iIndexA; iIndexB++)
+            {
+                ptrTempNodeA = ptrTempNodeA->ptrNext;
+            }
+
+            // Posiciona o ponteiro B iGap posições à frente de A
+            ptrTempNodeB = ptrTempNodeA;
+            for (int iIndexB = 0; iIndexB < iGap; iIndexB++)
+            {
+                ptrTempNodeB = ptrTempNodeB->ptrNext;
+            }
+
+            // Inicia um loop até que o node B seja maior que o node A
+            while (ptrTempNodeB->iData < ptrTempNodeA->iData)
+            {
+
+                // Insere os elementos que serão trocados nas posições corretas
+                insertAfter(ptrTempNodeA, ptrTempNodeB->iData);
+                insertAfter(ptrTempNodeB, ptrTempNodeA->iData);
+
+                // Armazena os ponteiros para os nós que foram criados
+                struct ListNode* ptrNextNode1 = ptrTempNodeA->ptrNext;
+                struct ListNode* ptrNextNode2 = ptrTempNodeB->ptrNext;
+
+                // Remove os elementos que foram trocados das posições anteriores
+                deleteNode(&ptrListHead, ptrTempNodeA);
+                deleteNode(&ptrListHead, ptrTempNodeB);
+
+                // Atualiza os ponteiros para os nós que foram criados
+                ptrTempNodeA = ptrNextNode2;
+                ptrTempNodeB = ptrNextNode1;
+
+
+                // Posiciona (caso possível) o ponteiro A a iGap posições antes do ponteiro B
+                ptrTempNodeA = ptrTempNodeB;
+                for (int iIndexB = 0; iIndexB < iGap; iIndexB++)
+                {
+                    ptrTempNodeA = ptrTempNodeA->ptrPrev;
+                    // Se A atingir o início da lista, paramos o loop
+                    if (ptrTempNodeA == nullptr)
+                    {
+                        break;
+                    }
+                }
+
+                // Se A atingir o início da lista, paramos o loop
+                if (ptrTempNodeA == nullptr)
+                {
+                    break;
+                }
+            }
+        }
+        // Após cada iteração de um gap sobre a lista, o próximo gap é reduzido pela metade
+        iGap /= 2;
+    }
+
+    // Retorna o ponteiro da lista ordenada
+    return ptrListHead;
+}
