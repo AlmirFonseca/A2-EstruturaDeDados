@@ -2,6 +2,7 @@
 #include "header.h"
 #include "sort.h"
 #include "tree.h"
+#include "draw.h"
 
 using namespace std;
 
@@ -211,6 +212,29 @@ void printList(struct ListNode* ptrHead)
     cout << endl;
 }
 
+// Percorre a lista e encontra o menor e o maior elemento
+void getListRange(struct ListNode* ptrHead, int* iListMin, int*iListMax)
+{
+    // Inicializa as variáveis com o primeiro elemento da lista
+    *iListMin = ptrHead->iData;
+    *iListMax = ptrHead->iData;
+
+    // Percorre a lista até o seu fim
+    while (ptrHead != nullptr)
+    {
+        // Atualiza o menor elemento
+        if (ptrHead->iData < *iListMin)
+            *iListMin = ptrHead->iData;
+
+        // Atualiza o maior elemento
+        if (ptrHead->iData > *iListMax)
+            *iListMax = ptrHead->iData;
+
+        // Avança para o próximo elemento
+        ptrHead = ptrHead->ptrNext;
+    }
+}
+
 // Função que percorre a árvore binária de busca e insere os dados em uma lista
 void insertTreeInList(struct Node* ptrNodeTree, struct ListNode** ptrListHead)
 {
@@ -246,19 +270,31 @@ struct ListNode* treeToList(struct Node* ptrNodeTree)
 }
 
 // Troca dois nós de posição numa lista
-void swapListNodes(struct ListNode** ptrHead, struct ListNode* ptrNode1, struct ListNode* ptrNode2)
+void swapListNodes(struct ListNode** ptrHead, struct ListNode** ptrNode1, struct ListNode** ptrNode2, bool bSwitchNodes=false)
 {
     // Insere os elementos que serão trocados nas posições corretas
-    insertAfter(ptrNode1, ptrNode2->iData);
-    insertAfter(ptrNode2, ptrNode1->iData);
+    insertAfter((*ptrNode1), (*ptrNode2)->iData);
+    insertAfter((*ptrNode2), (*ptrNode1)->iData);
+
+    // Avança os nós para a posição correta
+    (*ptrNode1) = (*ptrNode1)->ptrNext;
+    (*ptrNode2) = (*ptrNode2)->ptrNext;
 
     // Remove os elementos que foram trocados das posições anteriores
-    deleteNode(ptrHead, ptrNode1);
-    deleteNode(ptrHead, ptrNode2);
+    deleteNode(ptrHead, (*ptrNode1)->ptrPrev);
+    deleteNode(ptrHead, (*ptrNode2)->ptrPrev);
+
+    // Atualiza os ponteiros
+    if (bSwitchNodes)
+    {
+        struct ListNode* ptrAux = (*ptrNode1);
+        (*ptrNode1) = (*ptrNode2);
+        (*ptrNode2) = ptrAux;
+    }
 }
 
 // Converte a árvore numa lista e a converte utilizando o algoritmo de Bubble Sort
-struct ListNode* bubbleSort(struct Node* ptrNodeTree)
+struct ListNode* bubbleSort(struct Node* ptrNodeTree, bool bPrintStates=false)
 {
     // Converte a árvore para uma lista encadeada
     struct ListNode* ptrListHead = treeToList(ptrNodeTree);
@@ -268,6 +304,10 @@ struct ListNode* bubbleSort(struct Node* ptrNodeTree)
     {
         return ptrListHead;
     }
+
+    // Percorre a lista e encontra o menor e o maior elemento
+    int iListMin, iListMax;
+    getListRange(ptrListHead, &iListMin, &iListMax);
 
     // Cria um booleano para verificar se houve alguma troca na iteração
     bool bSwaped = false;
@@ -290,11 +330,24 @@ struct ListNode* bubbleSort(struct Node* ptrNodeTree)
         // Percorre a lista até o elemento anterior ao último elemento percorrido pelo outerLoop
         while (ptrCurrentNode->ptrNext != ptrStopNode)
         {
+            // Imprime o estado atual, onde ptrCurrentNode (azul) e ptrCurrentNode->ptrNext (azul) são os elementos sendo comparados
+            if (bPrintStates)
+            {
+                printListState(ptrListHead, iListMin, iListMax, ptrCurrentNode, 'b', ptrCurrentNode->ptrNext, 'b');
+            }
+
             // Caso o elemento atual seja maior que o próximo elemento
             if (ptrCurrentNode->iData > ptrCurrentNode->ptrNext->iData)
             {
                 // Troca os nós de posição
-                swapListNodes(&ptrListHead, ptrCurrentNode, ptrCurrentNode->ptrNext);
+                struct ListNode* ptrAux = ptrCurrentNode->ptrNext;
+                swapListNodes(&ptrListHead, &ptrCurrentNode, &ptrAux, false);
+
+                // Imprime o estado atual, onde ptrCurrentNode (verde) e ptrCurrentNode->ptrNext (verde) são os elementos sendo comparados
+                if (bPrintStates)
+                {
+                    printListState(ptrListHead, iListMin, iListMax, ptrCurrentNode, 'g', ptrCurrentNode->ptrNext, 'g');
+                }
 
                 // Atualiza o booleano
                 bSwaped = true;
@@ -315,8 +368,7 @@ struct ListNode* bubbleSort(struct Node* ptrNodeTree)
     return ptrListHead;
 }
 
-// Converte a árvore numa lista e a converte utilizando o algoritmo de Selection Sort
-struct ListNode* selectionSort(struct Node* ptrNodeTree)
+struct ListNode* selectionSort(struct Node* ptrNodeTree, bool bPrintStates=false)
 {
     // Converte a árvore para uma lista encadeada
     struct ListNode* ptrListHead = treeToList(ptrNodeTree);
@@ -327,34 +379,61 @@ struct ListNode* selectionSort(struct Node* ptrNodeTree)
         return ptrListHead;
     }
 
+    // Percorre a lista e encontra o menor e o maior elemento
+    int iListMin, iListMax;
+    getListRange(ptrListHead, &iListMin, &iListMax);
+
     // Cria um ponteiro para percorrer a lista (outerLoop)
     struct ListNode* ptrOuterLoop = ptrListHead;
 
     // Percorre a lista no outerLoop até o seu fim (ptrOuterLoop != nullptr)
     while (ptrOuterLoop != nullptr)
     {
+        // Cria um ponteiro para salvar o próximo elemento do outerLoop
+        struct ListNode* NextOuter = ptrOuterLoop->ptrNext;
+        
         // Cria um ponteiro para percorrer a lista (innerLoop) que se inicia à frente do outerLoop
         struct ListNode* ptrInnerLoop = ptrOuterLoop->ptrNext;
 
         // Percorre a lista no innerLoop até o seu fim (ptrInnerLoop != nullptr)
         while (ptrInnerLoop != nullptr)
         {
+            // Cria um ponteiro para salvar o próximo elemento do innerLoop
+            struct ListNode* NextInner = ptrInnerLoop->ptrNext;
+
+            // Imprime o estado atual, onde ptrOuterLoop (vermelho) e ptrInnerLoop (azul) são os elementos sendo comparados
+            if (bPrintStates)
+            {
+                printListState(ptrListHead, iListMin, iListMax, ptrOuterLoop, 'r', ptrInnerLoop->ptrNext, 'b');
+            }
+                
             // Caso o elemento atual do innerLoop seja menor que o elemento atual do outerLoop
             if (ptrInnerLoop->iData < ptrOuterLoop->iData)
             {
                 // Troca os nós de posição, adicionando novos nós e apagando os nós antigos
-                swapListNodes(&ptrListHead, ptrOuterLoop, ptrInnerLoop);
-
-                // Avança os nós após a troca
+                insertAfter(ptrInnerLoop, ptrOuterLoop->iData);
+                insertAfter(ptrOuterLoop, ptrInnerLoop->iData);
+                
                 ptrInnerLoop = ptrInnerLoop->ptrNext;
                 ptrOuterLoop = ptrOuterLoop->ptrNext;
-            }
+                
+                deleteNode(&ptrListHead, ptrInnerLoop->ptrPrev);
 
-            // Avança o ponteiro ao final do innerLoop
+                // Caso o elemento anterior ao outerLoop seja o head da lista, atualiza o head
+                if (ptrOuterLoop->ptrPrev == ptrListHead) ptrListHead = ptrOuterLoop;
+                deleteNode(&ptrListHead, ptrOuterLoop->ptrPrev);
+
+                
+                // Imprime o estado atual, onde ptrOuterLoop (verde) e ptrInnerLoop (verde) são os elementos sendo comparados
+                if (bPrintStates)
+                {
+                    printListState(ptrListHead, iListMin, iListMax, ptrOuterLoop, 'g', ptrInnerLoop, 'g');
+                }
+            }
+            // Avança o ponteiro do innerLoop
             ptrInnerLoop = ptrInnerLoop->ptrNext;
         }
-
-        // Avança o ponteiro ao final do outerLoop
+        // Avança o ponteiro do outerLoop
         ptrOuterLoop = ptrOuterLoop->ptrNext;
     }
 
@@ -363,7 +442,7 @@ struct ListNode* selectionSort(struct Node* ptrNodeTree)
 }
 
 // Converte a árvore numa lista e a converte utilizando o algoritmo de Selection Sort
-struct ListNode* insertionSort(struct Node* ptrNodeTree)
+struct ListNode* insertionSort(struct Node* ptrNodeTree, bool bPrintStates=false)
 {
     // Converte a árvore para uma lista encadeada
     struct ListNode* ptrListHead = treeToList(ptrNodeTree);
@@ -374,6 +453,10 @@ struct ListNode* insertionSort(struct Node* ptrNodeTree)
         // Retorna o ponteiro da lista naturalmente ordenada
         return ptrListHead;
     }
+
+    // Percorre a lista e encontra o menor e o maior elemento
+    int iListMin, iListMax;
+    getListRange(ptrListHead, &iListMin, &iListMax);
 
     // Cria um ponteiro para armazenar a parte ordenada da lista
     struct ListNode* ptrSorted = ptrListHead;
@@ -400,10 +483,16 @@ struct ListNode* insertionSort(struct Node* ptrNodeTree)
             // Percorre a parte ordenada da lista até o seu fim
             while(ptrSortedTemp != ptrSorted->ptrNext)
             {
+
+                // Imprime o estado atual, onde ptrCurrent (vermelho) e ptrSortedTemp (azul) são os elementos sendo comparados
+                if (bPrintStates)
+                {
+                    printListState(ptrListHead, iListMin, iListMax, ptrCurrent, 'r', ptrSortedTemp, 'b');
+                }
+
                 // Caso o nó atual seja menor que o nó da parte ordenada da lista
                 if (ptrCurrent->iData < ptrSortedTemp->iData)
                 {
-
                     // Armazena o nó atual
                     int iCurrentPayload = ptrCurrent->iData;
 
@@ -412,6 +501,12 @@ struct ListNode* insertionSort(struct Node* ptrNodeTree)
 
                     // Insere o nó atual na sua nova posição
                     insertBefore(&ptrListHead, ptrSortedTemp, iCurrentPayload);
+
+                    // Imprime o estado atual, onde ptrCurrent (verde) e ptrSortedTemp (verde) são os elementos sendo comparados
+                    if (bPrintStates)
+                    {
+                        printListState(ptrListHead, iListMin, iListMax, ptrCurrent, 'g', ptrSortedTemp, 'g');
+                    }
 
                     // Interrompe o loop
                     break;
@@ -431,7 +526,7 @@ struct ListNode* insertionSort(struct Node* ptrNodeTree)
 }
 
 // Converte a árvore numa lista e a converte utilizando o algoritmo de Shell Sort
-struct ListNode* shellSort(struct Node* ptrNodeTree)
+struct ListNode* shellSort(struct Node* ptrNodeTree, bool bPrintStates=false)
 {
     // Converte a árvore para uma lista encadeada
     struct ListNode* ptrListHead = treeToList(ptrNodeTree);
@@ -441,6 +536,10 @@ struct ListNode* shellSort(struct Node* ptrNodeTree)
     {
         return ptrListHead;
     }
+
+    // Percorre a lista e encontra o menor e o maior elemento
+    int iListMin, iListMax;
+    getListRange(ptrListHead, &iListMin, &iListMax);
     
     // Criamos dois ponteiros temporários para percorrer a lista
     struct ListNode* ptrTempNodeA = ptrListHead;
@@ -488,22 +587,19 @@ struct ListNode* shellSort(struct Node* ptrNodeTree)
             while (ptrTempNodeB->iData < ptrTempNodeA->iData)
             {
 
-                // Insere os elementos que serão trocados nas posições corretas
-                insertAfter(ptrTempNodeA, ptrTempNodeB->iData);
-                insertAfter(ptrTempNodeB, ptrTempNodeA->iData);
+                // Imprime o estado atual, onde ptrTempNodeA (vermelho) e ptrTempNodeB (azul) são os elementos sendo comparados
+                if (bPrintStates)
+                {
+                    printListState(ptrListHead, iListMin, iListMax, ptrTempNodeA, 'r', ptrTempNodeB, 'b');
+                }
 
-                // Armazena os ponteiros para os nós que foram criados
-                struct ListNode* ptrNextNode1 = ptrTempNodeA->ptrNext;
-                struct ListNode* ptrNextNode2 = ptrTempNodeB->ptrNext;
+                swapListNodes(&ptrListHead, &ptrTempNodeA, &ptrTempNodeB, true);
 
-                // Remove os elementos que foram trocados das posições anteriores
-                deleteNode(&ptrListHead, ptrTempNodeA);
-                deleteNode(&ptrListHead, ptrTempNodeB);
-
-                // Atualiza os ponteiros para os nós que foram criados
-                ptrTempNodeA = ptrNextNode2;
-                ptrTempNodeB = ptrNextNode1;
-
+                // Imprime o estado atual, onde ptrTempNodeA (verde) e ptrTempNodeB (verde) são os elementos sendo comparados
+                if (bPrintStates)
+                {
+                    printListState(ptrListHead, iListMin, iListMax, ptrTempNodeA, 'g', ptrTempNodeB, 'g');
+                }
 
                 // Posiciona (caso possível) o ponteiro A a iGap posições antes do ponteiro B
                 ptrTempNodeA = ptrTempNodeB;

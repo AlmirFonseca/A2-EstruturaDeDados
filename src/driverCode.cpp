@@ -146,28 +146,28 @@ void printDriverCode()
     printList(ptrListHead);
 
     // Ordena a lista encadeada utilizando Bubble Sort
-    struct ListNode* ptrListBubbleSort =  bubbleSort(ptrRootTxt);
+    struct ListNode* ptrListBubbleSort =  bubbleSort(ptrRootTxt, false);
 
     // Imprime a lista encadeada ordenada
     cout << "Lista encadeada ordenada utilizando Bubble Sort: ";
     printList(ptrListBubbleSort);
 
     // Ordena a lista encadeada utilizando Selection Sort
-    struct ListNode* ptrListSelectionSort =  selectionSort(ptrRootTxt);
+    struct ListNode* ptrListSelectionSort =  selectionSort(ptrRootTxt, false);
 
     // Imprime a lista encadeada ordenada
     cout << "Lista encadeada ordenada utilizando Selection Sort: ";
     printList(ptrListSelectionSort);
 
     // Ordena a lista encadeada utilizando Insertion Sort
-    struct ListNode* ptrListInsertionSort =  insertionSort(ptrRootTxt);
+    struct ListNode* ptrListInsertionSort =  insertionSort(ptrRootTxt, false);
 
     // Imprime a lista encadeada ordenada
     cout << "Lista encadeada ordenada utilizando Insertion Sort: ";
     printList(ptrListInsertionSort);
 
     // Ordena a lista encadeada utilizando Shell Sort
-    struct ListNode* ptrListShellSort =  shellSort(ptrRootTxt);
+    struct ListNode* ptrListShellSort =  shellSort(ptrRootTxt, false);
 
     // Imprime a lista encadeada ordenada
     cout << "Lista encadeada ordenada utilizando Shell Sort: ";

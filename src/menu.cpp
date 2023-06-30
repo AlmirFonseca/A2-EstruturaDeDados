@@ -329,7 +329,7 @@ void menuOrdenacao()
     case 1:
         // Ordena a lista por Bubble Sort e mede o tempo de execução
         start = chrono::high_resolution_clock::now();
-        orderedList = bubbleSort(ptrRoot);
+        orderedList = bubbleSort(ptrRoot, false);
 
         // Exibindo a lista ordenada
         cout << "Lista ordenada: ";
@@ -347,7 +347,7 @@ void menuOrdenacao()
     case 2:
         // Ordena a lista por Selection Sort e mede o tempo de execução
         start = chrono::high_resolution_clock::now();
-        orderedList = selectionSort(ptrRoot);
+        orderedList = selectionSort(ptrRoot, false);
 
         // Exibindo a lista ordenada
         cout << "Lista ordenada: ";
@@ -364,7 +364,7 @@ void menuOrdenacao()
     case 3:
         // Ordena a lista por Insertion Sort e mede o tempo de execução
         start = chrono::high_resolution_clock::now();
-        orderedList = insertionSort(ptrRoot);
+        orderedList = insertionSort(ptrRoot, false);
 
         // Exibindo a lista ordenada
         cout << "Lista ordenada: ";
@@ -381,7 +381,7 @@ void menuOrdenacao()
     case 4:
         // Ordena a lista por Shell Sort e mede o tempo de execução
         start = chrono::high_resolution_clock::now();
-        orderedList = shellSort(ptrRoot);
+        orderedList = shellSort(ptrRoot, false);
 
         // Exibindo a lista ordenada
         cout << "Lista ordenada: ";
