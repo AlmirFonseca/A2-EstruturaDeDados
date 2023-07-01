@@ -234,7 +234,7 @@ void printDriverCode()
     deleteList(&ptrListInsertionSort);
 
     // Shell Sort
-    ptrListShellSort = shellSort(ptrRootTxt, true);
+    ptrListShellSort = shellSort(ptrRootTxt, false);
     cout << "Lista encadeada ordenada utilizando Shell Sort: ";
     printList(ptrListShellSort);
     deleteList(&ptrListShellSort);
