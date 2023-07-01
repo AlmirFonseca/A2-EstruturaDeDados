@@ -583,6 +583,12 @@ struct ListNode* shellSort(struct Node* ptrNodeTree, bool bPrintStates=false)
                 ptrTempNodeB = ptrTempNodeB->ptrNext;
             }
 
+            // Imprime o estado atual, onde ptrTempNodeA (vermelho) e ptrTempNodeB (azul) são os elementos sendo comparados
+            if (bPrintStates)
+            {
+                printListState(ptrListHead, iListMin, iListMax, ptrTempNodeA, 'r', ptrTempNodeB, 'b');
+            }
+
             // Inicia um loop até que o node B seja maior que o node A
             while (ptrTempNodeB->iData < ptrTempNodeA->iData)
             {
