@@ -19,6 +19,9 @@ void deleteList(struct ListNode** ptrHead);
 // Exibe os elementos da lista
 void printList(struct ListNode* ptrHead);
 
+// Percorre a lista e encontra o menor e o maior elemento
+void getListRange(struct ListNode* ptrHead, int* iListMin, int*iListMax);
+
 // Função que percorre a árvore binária de busca e insere os dados em uma lista
 void insertTreeInList(struct Node* ptrNodeTree, struct ListNode** ptrListHead);
 
@@ -26,16 +29,16 @@ void insertTreeInList(struct Node* ptrNodeTree, struct ListNode** ptrListHead);
 struct ListNode* treeToList(struct Node* ptrNodeTree);
 
 // Troca dois nós de posição numa lista
-// void swapListNodes(struct ListNode** ptrHead, struct ListNode* ptrNodeA, struct ListNode* ptrNodeB);
+void swapListNodes(struct ListNode** ptrHead, struct ListNode** ptrNode1, struct ListNode** ptrNode2, bool bSwitchNodes);
 
-// Converte a árvore numa lista e a converte utilizando o algoritmo de Bubble Sort
+// Converte a árvore numa lista e a ordena utilizando o algoritmo de Bubble Sort
 struct ListNode* bubbleSort(struct Node* ptrNodeTree, bool bPrintStates);
 
-// Converte a árvore numa lista e a converte utilizando o algoritmo de Selection Sort
+// Converte a árvore numa lista e a ordena utilizando o algoritmo de Selection Sort
 struct ListNode* selectionSort(struct Node* ptrNodeTree, bool bPrintStates);
 
-// Converte a árvore numa lista e a converte utilizando o algoritmo de Selection Sort
+// Converte a árvore numa lista e a ordena utilizando o algoritmo de Insert Sort
 struct ListNode* insertionSort(struct Node* ptrNodeTree, bool bPrintStates);
 
-// Converte a árvore numa lista e a converte utilizando o algoritmo de Shell Sort
+// Converte a árvore numa lista e a ordena utilizando o algoritmo de Shell Sort
 struct ListNode* shellSort(struct Node* ptrNodeTree, bool bPrintStates);

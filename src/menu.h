@@ -1,5 +1,15 @@
+#include <chrono>
+
+using namespace std::chrono;
+
 // Função que pede confirmação para sobrescrever a árvore
 bool confirmOverwrite();
+
+// Função que solicita ao usuário se ele deseja visualizar a representação gráfica da ordenação
+bool drawSort();
+
+// Exibe o tempo de execução do processo
+void printTime(time_point<high_resolution_clock> tpTimeStart, time_point<high_resolution_clock> tpTimeStop);
 
 // Função que exibe o menu principal e retorna a escolha do usuário
 int escolhaPrincipal();

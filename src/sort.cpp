@@ -293,7 +293,7 @@ void swapListNodes(struct ListNode** ptrHead, struct ListNode** ptrNode1, struct
     }
 }
 
-// Converte a árvore numa lista e a converte utilizando o algoritmo de Bubble Sort
+// Converte a árvore numa lista e a ordena utilizando o algoritmo de Bubble Sort
 struct ListNode* bubbleSort(struct Node* ptrNodeTree, bool bPrintStates=false)
 {
     // Converte a árvore para uma lista encadeada
@@ -368,6 +368,7 @@ struct ListNode* bubbleSort(struct Node* ptrNodeTree, bool bPrintStates=false)
     return ptrListHead;
 }
 
+// Converte a árvore numa lista e a ordena utilizando o algoritmo de Selection Sort
 struct ListNode* selectionSort(struct Node* ptrNodeTree, bool bPrintStates=false)
 {
     // Converte a árvore para uma lista encadeada
@@ -441,7 +442,7 @@ struct ListNode* selectionSort(struct Node* ptrNodeTree, bool bPrintStates=false
     return ptrListHead;
 }
 
-// Converte a árvore numa lista e a converte utilizando o algoritmo de Selection Sort
+// Converte a árvore numa lista e a ordena utilizando o algoritmo de Insertion Sort
 struct ListNode* insertionSort(struct Node* ptrNodeTree, bool bPrintStates=false)
 {
     // Converte a árvore para uma lista encadeada
@@ -525,7 +526,7 @@ struct ListNode* insertionSort(struct Node* ptrNodeTree, bool bPrintStates=false
     return ptrListHead;
 }
 
-// Converte a árvore numa lista e a converte utilizando o algoritmo de Shell Sort
+// Converte a árvore numa lista e a ordena utilizando o algoritmo de Shell Sort
 struct ListNode* shellSort(struct Node* ptrNodeTree, bool bPrintStates=false)
 {
     // Converte a árvore para uma lista encadeada

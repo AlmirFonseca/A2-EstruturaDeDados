@@ -2,12 +2,6 @@
 #include <string>
 using namespace std;
 
-// Função que adiciona um ponteiro do nó de uma arvóre em uma fila
-void enqueueNode(struct QueueNode** ptrQueue, struct Node* ptrNode, int iLevel);
-
-// Função para imprimir a árvore binária de busca utilizando BFS
-void printTreeBFS(struct Node* ptrNode);
-
 // Função para criar um novo nó a partir de um dado
 struct Node* newNode(int iPayload);
 
@@ -44,8 +38,17 @@ struct Node* inputRemoveNode(struct Node* ptrNode);
 // Função para deletar a árvore binária de busca
 void deleteTree(struct Node* ptrNode);
 
+// Função auxiliar para obter o mínimo entre dois valores inteiros
+int getMin(int a, int b);
+
+// Função auxiliar para obter o máximo entre dois valores inteiros
+int getMax(int a, int b);
+
 // Função para calcular a altura da árvore
 int calculateHeight(struct Node* ptrNode);
+
+// Função auxiliar para calcular as estatísticas da árvore
+void calculateTreeStats(struct Node* ptrNode, TreeStats& tsStats);
 
 // Função para obter o tamanho da árvore
 TreeStats getTreeSize(struct Node* ptrNode);   
@@ -53,8 +56,17 @@ TreeStats getTreeSize(struct Node* ptrNode);
 // Função que calcula o tamanho da árvore
 int calculateSize(struct Node* ptrNode);
 
+// Função auxiliar para verificar se a árvore é completa
+bool isCompleteTree(struct Node* ptrNode, int iIndex, int iSize);
+
 // Função que verifica se a árvore é completa
 bool isCompleteTree(struct Node* ptrNode);
+
+// Função que adiciona um ponteiro do nó de uma arvóre em uma fila
+void enqueueNode(struct QueueNode** ptrQueue, struct Node* ptrNode, int iLevel);
+
+// Função para imprimir a árvore binária de busca utilizando BFS
+void printTreeBFS(struct Node* ptrNode);
 
 // Função que busca o endereço de memória de um nó
 struct Node* searchNode(struct Node* ptrNode, int iTarget);

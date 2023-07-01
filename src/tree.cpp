@@ -27,7 +27,6 @@ struct Node* newNode(int iPayload)
     return ptrNewNode;
 }
 
-
 // Função para inserir um novo nó na árvore binária de busca
 struct Node* insertNode(struct Node* ptrNode, int iPayload)
 {
@@ -103,8 +102,6 @@ Node* stringToTree(Node* ptrNode, string strTree)
     return ptrNode;
 }
 
-
-
 // Função para criar uma árvore binária de busca a partir de dados digitados
 struct Node* inputTree()
 {
@@ -124,8 +121,6 @@ struct Node* inputTree()
     
     return ptrRoot;
 }
-
-
 
 // Função para criar uma árvore binária de busca a partir de um arquivo .txt
 struct Node* txtToTree(string strPath)
@@ -210,7 +205,6 @@ bool isPerfectTree(struct Node* ptrNode)
     }
     
 }
-
 
 // Função que permite usuário fornecer um elemento para ser inserido na árvore
 struct Node* inputInsertNode(struct Node* ptrNode)
@@ -375,7 +369,6 @@ void deleteTree(struct Node* ptrNode)
     }
 }
 
-
 // Função auxiliar para obter o mínimo entre dois valores inteiros
 int getMin(int a, int b) 
 {
@@ -497,7 +490,6 @@ void enqueueNode(struct QueueNode** ptrQueue, struct Node* ptrNode, int iLevel)
         ptrCurrent->ptrNext = ptrNewQueueNode;
     }
 }
-
 
 // Função para imprimir a árvore binária de busca utilizando BFS
 void printTreeBFS(struct Node* ptrNode)
