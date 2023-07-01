@@ -23,14 +23,22 @@ No módulo "src", estão contidas os arquivos com as funções para manipulaçã
   - Converter a árvore em uma lista e ordenar com Selection Sort
   - Converter a árvore em uma lista e ordenar com Insertion Sort
   - Converter a árvore em uma lista e ordenar com Shell Sort
+ 
+- **draw.cpp**: Contém funções para:
+  - Visualizar o ordenamento de uma lista com Bubble Sort
+  - Visualizar o ordenamento de uma lista com Selection Sort
+  - Visualizar o ordenamento de uma lista com Insertion Sort
+  - Visualizar o ordenamento de uma lista com Shell Sort
 
 Esses arquivos também incluem as funções auxiliares para as citadas acima.
 
-No arquivo "driver.cpp", você encontrará exemplos de uso das funções acima.
+O arquivo **header.h** contém as estruturas utilizadas nos demais arquivos.
 
-No módulo "trees", há um exemplo de arquivo .txt que será lido e convertido para uma árvore binária.
+No arquivo **driver.cpp**, você encontrará exemplos de uso das funções acima.
 
-Por fim, o arquivo "main.cpp" é um menu interativo com o usuário, no qual ele pode utilizar as funções do módulo "src" de forma intuitiva.
+No módulo "trees", há exemplos de arquivos .txt que podem ser lidos e convertidos para uma árvore binária.
+
+Por fim, o arquivo **main.cpp** é um menu interativo com o usuário, no qual ele pode utilizar as funções do módulo "src" de forma intuitiva.
 
 ## Pré-requisitos
 
