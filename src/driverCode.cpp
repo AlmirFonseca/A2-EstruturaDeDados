@@ -104,6 +104,11 @@ void printDriverCode()
     cout << endl;
 
 
+    // =================== ENDEREÇO ===================
+    // Busca o endereço de memória de ume elemento na árvore
+    inputSearchNode(ptrRootTxt);
+
+
     // =================== IMPRESSÃO DA ÁRVORE UTILIZANDO BFS ===================
     cout << endl << "---- Impressão da árvore utilizando BFS: " << endl;
 
@@ -236,9 +241,4 @@ void printDriverCode()
 
     // Libera a memória alocada pela árvore
     deleteTree(ptrRootTxt);
-
-    // =================== ENDEREÇO ===================
-    // Busca o endereço de memória de ume elemento na árvore
-    // searchNode(ptrRootTxt);
-
 }

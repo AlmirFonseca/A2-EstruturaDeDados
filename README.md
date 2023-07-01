@@ -34,7 +34,7 @@ Esses arquivos também incluem as funções auxiliares para as citadas acima.
 
 O arquivo **header.h** contém as estruturas utilizadas nos demais arquivos.
 
-No arquivo **driver.cpp**, você encontrará exemplos de uso das funções acima.
+No arquivo **driverCode.cpp**, você encontrará exemplos de uso das funções acima.
 
 No módulo "trees", há exemplos de arquivos .txt que podem ser lidos e convertidos para uma árvore binária.
 
@@ -46,7 +46,11 @@ Não é necessária nenhuma instalação adicional para a execução desse repos
 
 ## Uso
 
-Após a clonagem deste repositório, o uso pode ser feito pelo arquivo "main.cpp".
+Após a clonagem deste repositório, o uso pode ser feito pelo arquivo "main.cpp", abrindo o powershell na pasta raiz do repositório e executando o comando:
+
+```bash
+g++ -o main main.cpp ./src/*.cpp; ./main
+```
 
 ## Licença
 

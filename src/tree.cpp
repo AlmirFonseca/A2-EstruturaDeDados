@@ -580,7 +580,7 @@ struct Node* searchNode(struct Node* ptrNode, int iTarget)
 }
 
 // Função que imprime o endereço de memória de um nó na árvore
-void searchNode(struct Node* ptrNode)
+void inputSearchNode(struct Node* ptrNode)
 {
     // Solicita o valor a ser buscado
     int iTarget;
@@ -594,8 +594,17 @@ void searchNode(struct Node* ptrNode)
         return;
     }
 
+    // Inicia a contagem do tempo de execução
+    tpStartTree = high_resolution_clock::now();
+
     // Busca o endereço de memória do nó
     struct Node* ptrTarget = searchNode(ptrNode, iTarget);
+
+    // Finaliza a contagem do tempo de execução
+    tpStopTree = high_resolution_clock::now();
+
+    // Imprime o tempo de execução
+    printTime(tpStartTree, tpStopTree);
 
     // Imprime o resultado da busca
     if (ptrTarget == nullptr)
@@ -604,7 +613,7 @@ void searchNode(struct Node* ptrNode)
     }
     else
     {
-        cout << "O endereço de memória do nó " << ptrNode->iData   << " é: " << ptrTarget << endl;
+        cout << "O endereço de memória do nó " << ptrTarget->iData << " é: " << ptrTarget << endl;
     }
 
 }
