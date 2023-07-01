@@ -46,7 +46,7 @@ Não é necessária nenhuma instalação adicional para a execução desse repos
 
 ## Uso
 
-Após a clonagem deste repositório, o uso pode ser feito pelo arquivo "main.cpp", abrindo o powershell na pasta raiz do repositório e executando o comando:
+Após a clonagem deste repositório, o uso pode ser feito abrindo o arquivo "main.exe" ou pelo arquivo "main.cpp", abrindo o powershell na pasta raiz do repositório e executando o comando:
 
 ```bash
 g++ -o main main.cpp ./src/*.cpp; ./main
