@@ -63,7 +63,7 @@ void printTree(struct Node* ptrNode)
     
 }
 
-// Função que, dado uma string separada por vírgulas, cria uma árvore binária de busca
+// Função que, dado uma string separada por espaços, cria uma árvore binária de busca
 Node* stringToTree(Node* ptrNode, string strTree)
 {
     // Verificar se a string está vazia
@@ -72,8 +72,8 @@ Node* stringToTree(Node* ptrNode, string strTree)
         return nullptr;
     }
     
-    // Expressão regular para separar os elementos entre vírgulas
-    regex separator(",");
+    // Expressão regular para separar os elementos entre espaços
+    regex separator("\\s");
     sregex_token_iterator iterator(strTree.begin(), strTree.end(), separator, -1);
     sregex_token_iterator srtiEndIterator;
     
@@ -115,7 +115,7 @@ struct Node* inputTree()
     string strTree;
 
     // Solicita os dados ao usuário
-    cout << "Digite os dados da sua árvore separados por vírgula: ";
+    cout << "Digite os dados da sua árvore separados por espaço: ";
     cin >> strTree;
 
 
