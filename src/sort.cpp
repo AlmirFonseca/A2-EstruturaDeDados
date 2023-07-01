@@ -82,22 +82,22 @@ void insertBefore(struct ListNode** ptrHead, struct ListNode* ptrNextNode, int i
     }
 
     // Criamos um novo nó
-    struct ListNode* newNode = createListNode(iPayload);
+    struct ListNode* ptrNewNode = createListNode(iPayload);
 
     // Atualizamos os ponteiros next e prev do novo nó
-    newNode->ptrNext = ptrNextNode;
-    newNode->ptrPrev = ptrNextNode->ptrPrev;
+    ptrNewNode->ptrNext = ptrNextNode;
+    ptrNewNode->ptrPrev = ptrNextNode->ptrPrev;
 
     // Atualizamos o ponteiro prev do nó seguinte
     if (ptrNextNode->ptrPrev != nullptr)
-        ptrNextNode->ptrPrev->ptrNext = newNode;
+        ptrNextNode->ptrPrev->ptrNext = ptrNewNode;
 
     // Atualizamos o ponteiro prev do nó seguinte
-    ptrNextNode->ptrPrev = newNode;
+    ptrNextNode->ptrPrev = ptrNewNode;
 
     // Se o nó seguinte for a head, atualizamos a head
     if (*ptrHead == ptrNextNode)
-        *ptrHead = newNode;
+        *ptrHead = ptrNewNode;
 }
 
 // Insere um nó após um nó específico
@@ -390,7 +390,7 @@ struct ListNode* selectionSort(struct Node* ptrNodeTree, bool bPrintStates=false
     while (ptrOuterLoop != nullptr)
     {
         // Cria um ponteiro para salvar o próximo elemento do outerLoop
-        struct ListNode* NextOuter = ptrOuterLoop->ptrNext;
+        struct ListNode* ptrNextOuter = ptrOuterLoop->ptrNext;
         
         // Cria um ponteiro para percorrer a lista (innerLoop) que se inicia à frente do outerLoop
         struct ListNode* ptrInnerLoop = ptrOuterLoop->ptrNext;
@@ -399,7 +399,7 @@ struct ListNode* selectionSort(struct Node* ptrNodeTree, bool bPrintStates=false
         while (ptrInnerLoop != nullptr)
         {
             // Cria um ponteiro para salvar o próximo elemento do innerLoop
-            struct ListNode* NextInner = ptrInnerLoop->ptrNext;
+            struct ListNode* ptrNextInner = ptrInnerLoop->ptrNext;
 
             // Imprime o estado atual, onde ptrOuterLoop (vermelho) e ptrInnerLoop (azul) são os elementos sendo comparados
             if (bPrintStates)

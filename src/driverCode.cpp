@@ -35,7 +35,7 @@ void printDriverCode()
     cout << endl << endl;
 
     // Chama a função para obter os resultados
-    treeStats tsStats = getTreeSize(ptrRootTxt);
+    TreeStats tsStats = getTreeSize(ptrRootTxt);
 
     // Exibindo os resultados
     cout << "Número de nós: " << tsStats.iNumNodes << endl;
@@ -46,10 +46,10 @@ void printDriverCode()
 
     // =================== ALTURA DA ÁRVORE ===================
     // Calcula a altura da árvore
-    int treeHeight = calculateHeight(ptrRootTxt);
+    int iTreeHeight = calculateHeight(ptrRootTxt);
     
     // Exibe a altura calculada
-    cout << "Altura da árvore: " << treeHeight << endl << endl;
+    cout << "Altura da árvore: " << iTreeHeight << endl << endl;
 
 
     // =================== ÁRVORE COMPLETA ===================
@@ -205,40 +205,40 @@ void printDriverCode()
 
 
     // Testa a ordenação da lista gerada por outra árvore
-    struct Node* ptrRootTxt2 = txtToTree("./trees/arvore2.txt");
+    ptrRootTxt = txtToTree("./trees/arvore2.txt");
     cout << endl << "Nova árvore binária de busca: ";
-    printTreeBFS(ptrRootTxt2);
+    printTreeBFS(ptrRootTxt);
     cout << endl;
 
     // Buble Sort
-    struct ListNode* ptrListBubbleSort2 = bubbleSort(ptrRootTxt2, false);
+    ptrListBubbleSort = bubbleSort(ptrRootTxt, false);
     cout << "Lista encadeada ordenada utilizando Bubble Sort: ";
-    printList(ptrListBubbleSort2);
-    deleteList(&ptrListBubbleSort2);
+    printList(ptrListBubbleSort);
+    deleteList(&ptrListBubbleSort);
 
     // Selection Sort
-    struct ListNode* ptrListSelectionSort2 = selectionSort(ptrRootTxt2, false);
+    ptrListSelectionSort = selectionSort(ptrRootTxt, false);
     cout << "Lista encadeada ordenada utilizando Selection Sort: ";
-    printList(ptrListSelectionSort2);
-    deleteList(&ptrListSelectionSort2);
+    printList(ptrListSelectionSort);
+    deleteList(&ptrListSelectionSort);
 
     // Insertion Sort
-    struct ListNode* ptrListInsertionSort2 = insertionSort(ptrRootTxt2, false);
+    ptrListInsertionSort = insertionSort(ptrRootTxt, false);
     cout << "Lista encadeada ordenada utilizando Insertion Sort: ";
-    printList(ptrListInsertionSort2);
-    deleteList(&ptrListInsertionSort2);
+    printList(ptrListInsertionSort);
+    deleteList(&ptrListInsertionSort);
 
     // Shell Sort
-    struct ListNode* ptrListShellSort2 = shellSort(ptrRootTxt2, false);
+    ptrListShellSort = shellSort(ptrRootTxt, true);
     cout << "Lista encadeada ordenada utilizando Shell Sort: ";
-    printList(ptrListShellSort2);
-    deleteList(&ptrListShellSort2);
+    printList(ptrListShellSort);
+    deleteList(&ptrListShellSort);
 
     // Libera a memória alocada pela árvore
-    deleteTree(ptrRootTxt2);
+    deleteTree(ptrRootTxt);
 
     // =================== ENDEREÇO ===================
     // Busca o endereço de memória de ume elemento na árvore
-    searchNode(ptrRootTxt);
+    // searchNode(ptrRootTxt);
 
 }

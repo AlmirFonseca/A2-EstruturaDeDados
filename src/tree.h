@@ -48,7 +48,7 @@ void deleteTree(struct Node* ptrNode);
 int calculateHeight(struct Node* ptrNode);
 
 // Informações sobre a estrutura da árvore
-struct treeStats 
+struct TreeStats 
 {
     int iNumNodes;     // Número de nós
     int iMinValue;     // Valor mínimo
@@ -57,7 +57,7 @@ struct treeStats
 };
 
 // Função para obter o tamanho da árvore
-treeStats getTreeSize(struct Node* ptrNode);   
+TreeStats getTreeSize(struct Node* ptrNode);   
 
 // Função que calcula o tamanho da árvore
 int calculateSize(struct Node* ptrNode);

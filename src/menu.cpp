@@ -10,20 +10,20 @@
 using namespace std;
 
 // Variável global que representa o texto do terminal
-HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+HANDLE hOutputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 
 // Variável global que armazena a árvore
 struct Node* ptrRoot = nullptr;
 
 // Variável global que armazena os dados da árvore
-treeStats tsTreeStats;
+TreeStats tsTreeStats;
 
 // Inicializa as variáveis de tempo
-time_point<high_resolution_clock> start;
-time_point<high_resolution_clock> stop;
+time_point<high_resolution_clock> tpStart;
+time_point<high_resolution_clock> tpStop;
 
 // Variável global que armazena a lista resultante da ordenação da árvore
-struct ListNode* orderedList;
+struct ListNode* ptrOrderedList;
 
 
 // Função que pede confirmação para sobrescrever a árvore
@@ -66,17 +66,17 @@ bool confirmOverwrite()
 void printTime(time_point<high_resolution_clock> tpTimeStart, time_point<high_resolution_clock> tpTimeStop)
 {
     // Calcula o tempo de execução em nanosegundos
-    auto dcTimeDuration = duration_cast<nanoseconds>(tpTimeStop - tpTimeStart);
+    auto nsTimeDuration = duration_cast<nanoseconds>(tpTimeStop - tpTimeStart);
     // Armazena o tempo de execução em um long long int
-    long long int lliTime = dcTimeDuration.count();
+    long long int llTime = nsTimeDuration.count();
 
     cout << "Tempo de execução: ";
 
     // Exibe o tempo de execução, ajustando a sua escala conforme necessário
-    if (lliTime < 1e3) cout << lliTime << " nanosegundos (ns)" << endl;
-    else if (lliTime < 1e6) cout << lliTime/1e3 << " microsegundos (us)" << endl;
-    else if (lliTime < 1e9) cout << lliTime/1e6 << " milisegundos (ms)" << endl;
-    else cout << lliTime/1e9 << " segundos (s)" << endl;
+    if (llTime < 1e3) cout << llTime << " nanosegundos (ns)" << endl;
+    else if (llTime < 1e6) cout << llTime/1e3 << " microsegundos (us)" << endl;
+    else if (llTime < 1e9) cout << llTime/1e6 << " milisegundos (ms)" << endl;
+    else cout << llTime/1e9 << " segundos (s)" << endl;
 }
 
 
@@ -86,7 +86,7 @@ int escolhaPrincipal()
     int iEscolha;
     
     // Setar a cor da letra para azul
-    SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+    SetConsoleTextAttribute(hOutputHandle, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 
     // Imprimir o menu principal
     cout << endl << "+==+==+==+==+==+==+ MENU PRINCIPAL +==+==+==+==+==+==+" << endl;
@@ -105,7 +105,7 @@ int escolhaPrincipal()
     cin >> iEscolha;
 
     // Resetar a cor
-    SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
+    SetConsoleTextAttribute(hOutputHandle, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
     cout << endl;
 
     // Retornar a escolha do usuário
@@ -119,7 +119,7 @@ int escolhaManipulacao()
     int iEscolha;
 
     // Setar a cor da letra para verde
-    SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+    SetConsoleTextAttribute(hOutputHandle, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 
     // Imprimir o menu de manipulação
     cout << endl << "========> MANIPULAÇÃO" << endl;
@@ -137,7 +137,7 @@ int escolhaManipulacao()
     cin >> iEscolha;
 
     // Resetar a cor
-    SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
+    SetConsoleTextAttribute(hOutputHandle, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
     cout << endl;
 
     // Retornar a escolha do usuário
@@ -151,7 +151,7 @@ int escolhaInfos()
     int iEscolha;
 
     // Setar a cor da letra para verde
-    SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+    SetConsoleTextAttribute(hOutputHandle, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 
     // Imprimir o menu de informações
     cout << endl << "========> INFORMAÇÕES" << endl;
@@ -168,7 +168,7 @@ int escolhaInfos()
     cin >> iEscolha;
 
     // Resetar a cor
-    SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
+    SetConsoleTextAttribute(hOutputHandle, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
     cout << endl;
 
     // Retornar a escolha do usuário
@@ -182,7 +182,7 @@ int escolhaOrdenacao()
     int iEscolha;
 
     // Setar a cor da letra para verde
-    SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+    SetConsoleTextAttribute(hOutputHandle, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 
     // Imprimir o menu de ordenação
     cout << endl << "========> ORDENAÇÃO" << endl;
@@ -199,7 +199,7 @@ int escolhaOrdenacao()
     cin >> iEscolha;
 
     // Resetar a cor
-    SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
+    SetConsoleTextAttribute(hOutputHandle, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
     cout << endl;
 
     // Retornar a escolha do usuário
@@ -259,15 +259,15 @@ void menuInfos()
     {
     case 1:
         // Calcula a altura da árvore e mede o tempo de execução
-        start = chrono::high_resolution_clock::now();
+        tpStart = chrono::high_resolution_clock::now();
         cout << "Altura da árvore: " << calculateHeight(ptrRoot) << endl;
-        stop = chrono::high_resolution_clock::now();
-        printTime(start, stop);
+        tpStop = chrono::high_resolution_clock::now();
+        printTime(tpStart, tpStop);
 
         break;
     case 2:
         // Calcula o tamanho da árvore e mede o tempo de execução
-        start = chrono::high_resolution_clock::now();
+        tpStart = chrono::high_resolution_clock::now();
 
         // Chama a função para obter os resultados
         tsTreeStats = getTreeSize(ptrRoot);
@@ -278,26 +278,26 @@ void menuInfos()
         cout << "Valor máximo: " << tsTreeStats.iMaxValue << endl;
         cout << "Número de folhas: " << tsTreeStats.iNumLeaves << endl;
 
-        stop = chrono::high_resolution_clock::now();
-        printTime(start, stop);
+        tpStop = chrono::high_resolution_clock::now();
+        printTime(tpStart, tpStop);
 
         break;
     case 3:
         // Calcula se a árvore é completa e mede o tempo de execução
-        start = chrono::high_resolution_clock::now();
+        tpStart = chrono::high_resolution_clock::now();
         cout << "A árvore é completa?" << endl;
         cout << (isCompleteTree(ptrRoot) ? "Sim" : "Não") << endl;
-        stop = chrono::high_resolution_clock::now();
-        printTime(start, stop);
+        tpStop = chrono::high_resolution_clock::now();
+        printTime(tpStart, tpStop);
 
         break;
     case 4:
         // Calcula se a árvore é perfeita e mede o tempo de execução
-        start = chrono::high_resolution_clock::now();
+        tpStart = chrono::high_resolution_clock::now();
         cout << "A árvore é perfeita?" << endl;
         cout << (isPerfectTree(ptrRoot) ? "Sim" : "Não") << endl;
-        stop = chrono::high_resolution_clock::now();
-        printTime(start, stop);
+        tpStop = chrono::high_resolution_clock::now();
+        printTime(tpStart, tpStop);
 
         break;
     
@@ -328,71 +328,71 @@ void menuOrdenacao()
     {
     case 1:
         // Ordena a lista por Bubble Sort e mede o tempo de execução
-        start = chrono::high_resolution_clock::now();
-        orderedList = bubbleSort(ptrRoot, false);
+        tpStart = chrono::high_resolution_clock::now();
+        ptrOrderedList = bubbleSort(ptrRoot, false);
 
         // Exibindo a lista ordenada
         cout << "Lista ordenada: ";
-        printList(orderedList);
+        printList(ptrOrderedList);
         cout << endl;
 
         // Imprimindo o tempo de execução
-        stop = chrono::high_resolution_clock::now();
-        printTime(start, stop);
+        tpStop = chrono::high_resolution_clock::now();
+        printTime(tpStart, tpStop);
 
         // Liberando a memória da lista ordenada
-        deleteList(&orderedList);
+        deleteList(&ptrOrderedList);
 
         break;
     case 2:
         // Ordena a lista por Selection Sort e mede o tempo de execução
-        start = chrono::high_resolution_clock::now();
-        orderedList = selectionSort(ptrRoot, false);
+        tpStart = chrono::high_resolution_clock::now();
+        ptrOrderedList = selectionSort(ptrRoot, false);
 
         // Exibindo a lista ordenada
         cout << "Lista ordenada: ";
-        printList(orderedList);
+        printList(ptrOrderedList);
 
         // Imprimindo o tempo de execução
-        stop = chrono::high_resolution_clock::now();
-        printTime(start, stop);
+        tpStop = chrono::high_resolution_clock::now();
+        printTime(tpStart, tpStop);
 
         // Liberando a memória da lista ordenada
-        deleteList(&orderedList);
+        deleteList(&ptrOrderedList);
 
         break;
     case 3:
         // Ordena a lista por Insertion Sort e mede o tempo de execução
-        start = chrono::high_resolution_clock::now();
-        orderedList = insertionSort(ptrRoot, false);
+        tpStart = chrono::high_resolution_clock::now();
+        ptrOrderedList = insertionSort(ptrRoot, false);
 
         // Exibindo a lista ordenada
         cout << "Lista ordenada: ";
-        printList(orderedList);
+        printList(ptrOrderedList);
 
         // Imprimindo o tempo de execução
-        stop = chrono::high_resolution_clock::now();
-        printTime(start, stop);
+        tpStop = chrono::high_resolution_clock::now();
+        printTime(tpStart, tpStop);
 
         // Liberando a memória da lista ordenada
-        deleteList(&orderedList);
+        deleteList(&ptrOrderedList);
 
         break;
     case 4:
         // Ordena a lista por Shell Sort e mede o tempo de execução
-        start = chrono::high_resolution_clock::now();
-        orderedList = shellSort(ptrRoot, false);
+        tpStart = chrono::high_resolution_clock::now();
+        ptrOrderedList = shellSort(ptrRoot, false);
 
         // Exibindo a lista ordenada
         cout << "Lista ordenada: ";
-        printList(orderedList);
+        printList(ptrOrderedList);
 
         // Imprimindo o tempo de execução
-        stop = chrono::high_resolution_clock::now();
-        printTime(start, stop);
+        tpStop = chrono::high_resolution_clock::now();
+        printTime(tpStart, tpStop);
 
         // Liberando a memória da lista ordenada
-        deleteList(&orderedList);
+        deleteList(&ptrOrderedList);
 
         break;
     

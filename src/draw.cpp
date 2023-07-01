@@ -6,14 +6,14 @@
 using namespace std;
 
 // Variável global que representa o texto do terminal
-HANDLE h_draw = GetStdHandle(STD_OUTPUT_HANDLE);
+HANDLE hOutputHandleDraw = GetStdHandle(STD_OUTPUT_HANDLE);
 
 // Altera a cor do texto do terminal
 void changeCoutColor(char cColor = 'w'){
-    if (cColor == 'b') SetConsoleTextAttribute(h_draw, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-    else if (cColor == 'g') SetConsoleTextAttribute(h_draw, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-    else if (cColor == 'r') SetConsoleTextAttribute(h_draw, FOREGROUND_RED | FOREGROUND_INTENSITY);
-    else SetConsoleTextAttribute(h_draw, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
+    if (cColor == 'b') SetConsoleTextAttribute(hOutputHandleDraw, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+    else if (cColor == 'g') SetConsoleTextAttribute(hOutputHandleDraw, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+    else if (cColor == 'r') SetConsoleTextAttribute(hOutputHandleDraw, FOREGROUND_RED | FOREGROUND_INTENSITY);
+    else SetConsoleTextAttribute(hOutputHandleDraw, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
 }
 
 // Calcula o número de caracteres que a barra deve ter, de acordo com os valores dos números

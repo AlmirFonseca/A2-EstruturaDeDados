@@ -10,21 +10,21 @@ using namespace std;
 using namespace std::chrono; // Para usar o tempo de execução
 
 // Inicializa as variáveis de tempo
-time_point<high_resolution_clock> tpStart;
-time_point<high_resolution_clock> tpEnd;
+time_point<high_resolution_clock> tpStartTree;
+time_point<high_resolution_clock> tpStopTree;
 
 
 // Função para criar um novo nó
 struct Node* newNode(int iPayload)
 {
     // Aloca memória para o novo nó
-    struct Node* newNode = new struct Node; 
+    struct Node* ptrNewNode = new struct Node; 
     // Atribui o dado ao novo nó
-    newNode->iData = iPayload;
+    ptrNewNode->iData = iPayload;
     // Atribui nullptr aos ponteiros para os nós filhos
-    newNode->ptrLeft = nullptr; 
-    newNode->ptrRight = nullptr;
-    return newNode;
+    ptrNewNode->ptrLeft = nullptr; 
+    ptrNewNode->ptrRight = nullptr;
+    return ptrNewNode;
 }
 
 
@@ -75,11 +75,11 @@ Node* stringToTree(Node* ptrNode, string strTree)
     // Expressão regular para separar os elementos entre vírgulas
     regex separator(",");
     sregex_token_iterator iterator(strTree.begin(), strTree.end(), separator, -1);
-    sregex_token_iterator endIterator;
+    sregex_token_iterator srtiEndIterator;
     
     
     // Percorrer os elementos separados e inserir na árvore
-    while (iterator != endIterator) 
+    while (iterator != srtiEndIterator) 
     {
         // Verificar se o elemento é válido
         if (isdigit(*iterator->str().begin()))
@@ -131,25 +131,25 @@ struct Node* inputTree()
 struct Node* txtToTree(string strPath)
 {
     // Inicia a contagem do tempo de execução
-    tpStart = high_resolution_clock::now(); 
+    tpStartTree = high_resolution_clock::now(); 
 
     // Cria um ponteiro para o nó raiz e o inicializa como nulo
     struct Node* ptrRoot = nullptr;
 
     // Variável para armazenar o conteúdo do arquivo
-    ifstream inputFile;
+    ifstream ifsInputFile;
 
     // Abre o arquivo   
-    inputFile.open(strPath);
+    ifsInputFile.open(strPath);
 
     // Verifica se o arquivo foi aberto corretamente
-    if (inputFile.is_open()) 
+    if (ifsInputFile.is_open()) 
     {
         // Variável para armazenar o conteúdo do arquivo
-        string strConteudo((istreambuf_iterator<char>(inputFile)), (istreambuf_iterator<char>()));
+        string strConteudo((istreambuf_iterator<char>(ifsInputFile)), (istreambuf_iterator<char>()));
 
         // Fecha o arquivo
-        inputFile.close();
+        ifsInputFile.close();
 
         // Chama a função para criar a árvore a partir do conteúdo do arquivo
         ptrRoot = stringToTree(ptrRoot, strConteudo);
@@ -162,10 +162,10 @@ struct Node* txtToTree(string strPath)
     }
 
     // Finaliza a contagem do tempo de execução
-    tpEnd = high_resolution_clock::now(); 
+    tpStopTree = high_resolution_clock::now(); 
     
     // Imprime o tempo de execução
-    printTime(tpStart, tpEnd);
+    printTime(tpStartTree, tpStopTree);
 
     return ptrRoot;
 }
@@ -230,16 +230,16 @@ struct Node* inputInsertNode(struct Node* ptrNode)
     }
 
     // Inicia a contagem do tempo de execução
-    tpStart = high_resolution_clock::now(); 
+    tpStartTree = high_resolution_clock::now(); 
 
     // Chama a função para inserir o elemento na árvore
     ptrNode = insertNode(ptrNode, iPayload);
 
     // Finaliza a contagem do tempo de execução
-    tpEnd = high_resolution_clock::now();
+    tpStopTree = high_resolution_clock::now();
 
     // Imprime o tempo de execução
-    printTime(tpStart, tpEnd);
+    printTime(tpStartTree, tpStopTree);
 
     return ptrNode;
 }
@@ -257,7 +257,7 @@ struct Node* removeNode(struct Node* ptrNode, int iPayload)
     else if(iPayload == ptrNode->iData)
     {
         // Se o nó não tiver filhos
-        if (ptrNode->ptrLeft == nullptr and ptrNode->ptrRight == nullptr)
+        if (ptrNode->ptrLeft == nullptr && ptrNode->ptrRight == nullptr)
         {
             // Exclui o nó e retorna nulo 
             free(ptrNode);
@@ -342,16 +342,16 @@ struct Node* inputRemoveNode(struct Node* ptrNode)
     }
 
     // Inicia a contagem do tempo de execução
-    tpStart = high_resolution_clock::now();
+    tpStartTree = high_resolution_clock::now();
 
     // Chama a função para remover o elemento da árvore
     ptrNode = removeNode(ptrNode, iPayload);
 
     // Finaliza a contagem do tempo de execução
-    tpEnd = high_resolution_clock::now();
+    tpStopTree = high_resolution_clock::now();
 
     // Imprime o tempo de execução
-    printTime(tpStart, tpEnd);
+    printTime(tpStartTree, tpStopTree);
 
     return ptrNode;
 }
@@ -376,22 +376,6 @@ void deleteTree(struct Node* ptrNode)
 }
 
 
-
-// Função que calcula a altura da árvore
-int calculateHeight(struct Node* prtNode) 
-{
-    if (prtNode == nullptr)
-        return 0;
-    else {
-        // Calcula a altura das subárvores esquerda e direita
-        int iLeftHeight = calculateHeight(prtNode->ptrLeft);
-        int iRightHeight = calculateHeight(prtNode->ptrRight);
-        
-        // Retorna a altura do nó atual somada à altura da subárvore mais alta
-        return 1 + max(iLeftHeight, iRightHeight);
-    }
-}
-
 // Função auxiliar para obter o mínimo entre dois valores inteiros
 int getMin(int a, int b) 
 {
@@ -404,31 +388,46 @@ int getMax(int a, int b)
     return (a > b) ? a : b;
 }
 
-// Função auxiliar para calcular as estatísticas da árvore
-void calculateTreeStats(struct Node* prtNode, treeStats& tsStats) 
+// Função que calcula a altura da árvore
+int calculateHeight(struct Node* ptrNode) 
 {
-    if (prtNode == nullptr) return;
+    if (ptrNode == nullptr)
+        return 0;
+    else {
+        // Calcula a altura das subárvores esquerda e direita
+        int iLeftHeight = calculateHeight(ptrNode->ptrLeft);
+        int iRightHeight = calculateHeight(ptrNode->ptrRight);
+        
+        // Retorna a altura do nó atual somada à altura da subárvore mais alta
+        return 1 + getMax(iLeftHeight, iRightHeight);
+    }
+}
+
+// Função auxiliar para calcular as estatísticas da árvore
+void calculateTreeStats(struct Node* ptrNode, TreeStats& tsStats) 
+{
+    if (ptrNode == nullptr) return;
 
     // Atualiza as estatísticas com base no nó atual
     tsStats.iNumNodes++;
-    tsStats.iMinValue = getMin(tsStats.iMinValue, prtNode->iData);
-    tsStats.iMaxValue = getMax(tsStats.iMaxValue, prtNode->iData);
+    tsStats.iMinValue = getMin(tsStats.iMinValue, ptrNode->iData);
+    tsStats.iMaxValue = getMax(tsStats.iMaxValue, ptrNode->iData);
 
     // Verifica se o nó atual é uma folha
-    if (prtNode->ptrLeft == nullptr && prtNode->ptrRight == nullptr) 
+    if (ptrNode->ptrLeft == nullptr && ptrNode->ptrRight == nullptr) 
     {
         tsStats.iNumLeaves++;
     }
 
     // Calcula as estatísticas das subárvores esquerda e direita recursivamente
-    calculateTreeStats(prtNode->ptrLeft, tsStats);
-    calculateTreeStats(prtNode->ptrRight, tsStats);
+    calculateTreeStats(ptrNode->ptrLeft, tsStats);
+    calculateTreeStats(ptrNode->ptrRight, tsStats);
 }
 
 // Inicializa as estatísticas da árvore
-treeStats getTreeSize(Node* ptrNode) 
+TreeStats getTreeSize(Node* ptrNode) 
 {
-    treeStats tsStats;
+    TreeStats tsStats;
     tsStats.iNumNodes = 0;
     tsStats.iMinValue = ptrNode->iData;
     tsStats.iMaxValue = ptrNode->iData;
@@ -504,7 +503,7 @@ void enqueueNode(struct QueueNode** ptrQueue, struct Node* ptrNode, int iLevel)
 void printTreeBFS(struct Node* ptrNode)
 {
     // Inicia a contagem do tempo de execução
-    tpStart = high_resolution_clock::now(); 
+    tpStartTree = high_resolution_clock::now(); 
 
     struct QueueNode* ptrQueueRoot = nullptr;
 
@@ -548,10 +547,10 @@ void printTreeBFS(struct Node* ptrNode)
     cout << endl;
 
     // Finaliza a contagem do tempo de execução
-    tpEnd = high_resolution_clock::now();
+    tpStopTree = high_resolution_clock::now();
 
     // Imprime o tempo de execução
-    printTime(tpStart, tpEnd);
+    printTime(tpStartTree, tpStopTree);
 }
 
 // Função que busca o endereço de memória de um nó na árvore
