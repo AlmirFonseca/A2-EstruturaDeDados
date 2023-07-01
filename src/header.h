@@ -32,5 +32,13 @@ struct QueueNode
     struct QueueNode* ptrNext; // Ponteiro para a próxima posição da fila
 };
 
+// Informações sobre a estrutura da árvore
+struct TreeStats 
+{
+    int iNumNodes;     // Número de nós
+    int iMinValue;     // Valor mínimo
+    int iMaxValue;     // Valor máximo
+    int iNumLeaves;    // Número de folhas
+};
 
 void printTime(time_point<high_resolution_clock> tpTimeStart, time_point<high_resolution_clock> tpTimeStop); // Exibe o tempo de execução do processo

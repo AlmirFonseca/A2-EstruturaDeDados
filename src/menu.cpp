@@ -61,6 +61,32 @@ bool confirmOverwrite()
     else return true;
 }
 
+// Função que solicita ao usuário se ele deseja visualizar a representação gráfica da ordenação
+bool drawSort()
+{
+    cout << "Deseja visualizar a representação gráfica da ordenação? (S/N): ";
+    char cEscolha;
+    cin >> cEscolha;
+
+    // Caso o usuário não queira visualizar a representação gráfica, retornar false
+    if (cEscolha == 'N' || cEscolha == 'n')
+    {
+        return false;
+    }
+
+    // Caso o usuário queira visualizar a representação gráfica, retornar true
+    else if (cEscolha == 'S' || cEscolha == 's')
+    {
+        return true;
+    }
+
+    // Caso o usuário digite uma opção inválida, voltar ao menu de manipulação
+    else
+    {
+        cout << "Opção inválida" << endl;
+        return false;
+    }
+}
 
 // Exibe o tempo de execução do processo
 void printTime(time_point<high_resolution_clock> tpTimeStart, time_point<high_resolution_clock> tpTimeStop)
@@ -340,6 +366,9 @@ void menuOrdenacao()
         tpStop = chrono::high_resolution_clock::now();
         printTime(tpStart, tpStop);
 
+        // Verificando se o usuário deseja ver a representação gráfica da ordenação
+        if (drawSort()) ptrOrderedList = bubbleSort(ptrRoot, true);
+
         // Liberando a memória da lista ordenada
         deleteList(&ptrOrderedList);
 
@@ -356,6 +385,9 @@ void menuOrdenacao()
         // Imprimindo o tempo de execução
         tpStop = chrono::high_resolution_clock::now();
         printTime(tpStart, tpStop);
+
+        // Verificando se o usuário deseja ver a representação gráfica da ordenação
+        if (drawSort()) ptrOrderedList = selectionSort(ptrRoot, true);
 
         // Liberando a memória da lista ordenada
         deleteList(&ptrOrderedList);
@@ -374,6 +406,9 @@ void menuOrdenacao()
         tpStop = chrono::high_resolution_clock::now();
         printTime(tpStart, tpStop);
 
+        // Verificando se o usuário deseja ver a representação gráfica da ordenação
+        if (drawSort()) ptrOrderedList = insertionSort(ptrRoot, true);
+
         // Liberando a memória da lista ordenada
         deleteList(&ptrOrderedList);
 
@@ -390,6 +425,9 @@ void menuOrdenacao()
         // Imprimindo o tempo de execução
         tpStop = chrono::high_resolution_clock::now();
         printTime(tpStart, tpStop);
+
+        // Verificando se o usuário deseja ver a representação gráfica da ordenação
+        if (drawSort()) ptrOrderedList = shellSort(ptrRoot, true);
 
         // Liberando a memória da lista ordenada
         deleteList(&ptrOrderedList);

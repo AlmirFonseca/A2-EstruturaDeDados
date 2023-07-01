@@ -47,15 +47,6 @@ void deleteTree(struct Node* ptrNode);
 // Função para calcular a altura da árvore
 int calculateHeight(struct Node* ptrNode);
 
-// Informações sobre a estrutura da árvore
-struct TreeStats 
-{
-    int iNumNodes;     // Número de nós
-    int iMinValue;     // Valor mínimo
-    int iMaxValue;     // Valor máximo
-    int iNumLeaves;    // Número de folhas
-};
-
 // Função para obter o tamanho da árvore
 TreeStats getTreeSize(struct Node* ptrNode);   
 
