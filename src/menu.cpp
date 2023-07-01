@@ -229,7 +229,7 @@ void menuManipulacao()
         ptrRoot = inputRemoveNode(ptrRoot);
         break;
     case 5: 
-        cout << "Buscar o endereço de memória de um elemento" << endl;
+        inputSearchNode(ptrRoot);
         break;
     
     // Caso o usuário queira voltar ao menu principal

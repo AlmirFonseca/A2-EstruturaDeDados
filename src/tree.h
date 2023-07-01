@@ -67,3 +67,6 @@ bool isCompleteTree(struct Node* ptrNode);
 
 // Função que busca o endereço de memória de um nó
 struct Node* searchNode(struct Node* ptrNode, int iTarget);
+
+// Função que solicita um valor para ser buscado na árvore e retorna o endereço de memória do nó
+void inputSearchNode(struct Node* ptrNode);
